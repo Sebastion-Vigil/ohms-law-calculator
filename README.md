@@ -16,7 +16,7 @@ An Ohm's Law calculator app for electricians and other technicians in the field.
 ### Brainstorm ###
 
 * Functional components, props, functionality
-* Calculator", Screen", Keyboard
+* Calculator, Screen, Keyboard
 * Calculator main engine
 * Does project need any classes
 * Generate markup in clean, organized manner
