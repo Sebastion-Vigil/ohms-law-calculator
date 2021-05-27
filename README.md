@@ -20,4 +20,3 @@ An Ohm's Law calculator app for electricians and other technicians in the field.
 * Calculator main engine
 * Does project need any classes
 * Generate markup in clean, organized manner
-* Word.
