@@ -4,7 +4,7 @@ import '../css/calculator.css'
 
 const Calculator = () => {
     return (
-        <div className='calculator'></div>
+        <div className='calculator'>Ohm's Law Calculator</div>
     )
 }
 
