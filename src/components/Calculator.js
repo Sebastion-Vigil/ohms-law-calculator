@@ -5,44 +5,41 @@ import Screen from './Screen.js'
 import '../css/calculator.css'
 
 const Calculator = () => {
-  const titles = useState(['Searching for which value?', 'Which 2 values known?', 'Answer']) 
+  const titles = useState([
+    'Searching for which value?',
+    'Which 2 values known?',
+    'Answer'
+  ])
   const values = useState(['Watts', 'Volts', 'Ohms', 'Amps'])
-  const [renderedTitle, setRenderedTitle] = useState(0)
-  const renderedValues = useState([0, 1, 2, 3])
+  const [renderedTitle, setRenderedTitle] = useState(0) // index into titles, updates as needed
+  const renderedValues = useState([0, 1, 2, 3]) // indexes into values, splices as needed
 
-
-
-  const testFunc = () => {
-      let newTitle = renderedTitle
-      newTitle += 1
-      if (newTitle > 2) newTitle = 0
-    //   console.log('newTitle index: ', newTitle)
-      setRenderedTitle(newTitle)
+  const userSelectValue = () => {
+    console.log('user selected a value!')
   }
 
-  const firstFunc = () => {
-      console.log('first function!')
+  const userInputValue = () => {
+    console.log('user input value!')
   }
 
-  const otherFunc = () => {
-      console.log('other function!')
+  const calculateUserInput = () => {
+    console.log('calculated user input!')
   }
 
-  const experimentFunc = () => {
-    const toReturn = renderedTitle === 0 ? firstFunc : otherFunc
-    toReturn() // k this worked but had 2 invoke it will experiment more later
+  const handleUserInput = () => {
+    const handleInput = [userSelectValue, userInputValue, calculateUserInput][renderedTitle]
+    handleInput()
   }
 
-  
   return (
-    <div className='calculator' >
-        <Screen
-          titles={titles[0]}
-          currentTitle={renderedTitle}
-          values={values[0]}
-          renderedVals={renderedValues[0]}
-          func={experimentFunc}
-        />
+    <div className='calculator'>
+      <Screen
+        titles={titles[0]}
+        currentTitle={renderedTitle}
+        values={values[0]}
+        renderedValIndexes={renderedValues[0]}
+        handleUser={handleUserInput}
+      />
     </div>
   )
 }

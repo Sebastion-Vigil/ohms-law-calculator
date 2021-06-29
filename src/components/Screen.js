@@ -10,12 +10,12 @@ const Screen = props => {
     <div className='screen' >
       <div className='title'>{props.titles[props.currentTitle]}</div>
       {
-          props.renderedVals.map((rVal, i) => {
+          props.renderedValIndexes.map((rValIndex, i) => {
               return (
                 <div key={i} className='user-select-value'>
-                <div className='value-name'>{props.values[rVal]}</div>
+                <div className='value-name'>{props.values[rValIndex]}</div>
                 <div className='divider'></div>
-                <div className='user-select-button' onClick={props.func}></div>
+                <div className='user-select-button' onClick={props.handleUser}></div>
               </div>
               )
           })
@@ -25,25 +25,4 @@ const Screen = props => {
 }
 
 export default Screen
-
-
-// {props.values.map((val, i) => {
-//     return (
-//       <div key={i} className='user-select-value'>
-//         <div className='value-name'>{val}</div>
-//         <div className='divider'></div>
-//         <div className='user-select-button'></div>
-//       </div>
-//     )
-//   })}
-
-{
-  /* <div>
-  {names.filter(name => name.includes('J')).map(filteredName => (
-    <li>
-      {filteredName}
-    </li>
-  ))}
-</div> */
-}
 // https://upmostly.com/tutorials/react-filter-filtering-arrays-in-react-with-examples
