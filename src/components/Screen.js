@@ -1,11 +1,12 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 // divider class name needs 2 b changed later, k?
 import '../css/Screen.css'
 
 const Screen = props => {
-  // useEffect(() => {
-  //     console.log('Screen useEffect invoked')
-  // }, [props])
+  useEffect(() => {
+    console.log('Screen useEffect invoked')
+  }, [props])
+
   return (
     <div className='screen'>
       <div className='title'>{props.currentTitle}</div>
@@ -16,7 +17,9 @@ const Screen = props => {
             <div className='divider'></div>
             <div
               className='user-select-button'
-              onClick={() => props.handleUser(rValIndex)}
+              onClick={() => {
+                props.handleUser(rValIndex)
+              }}
             ></div>
           </div>
         )
