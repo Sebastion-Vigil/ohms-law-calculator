@@ -8,14 +8,14 @@ const Screen = props => {
 //   }, [props])
   return (
     <div className='screen' >
-      <div className='title'>{props.titles[props.currentTitle]}</div>
+      <div className='title'>{props.currentTitle}</div>
       {
           props.renderedValIndexes.map((rValIndex, i) => {
               return (
                 <div key={i} className='user-select-value'>
                 <div className='value-name'>{props.values[rValIndex]}</div>
                 <div className='divider'></div>
-                <div className='user-select-button' onClick={props.handleUser}></div>
+                <div className='user-select-button' onClick={() => props.handleUser(props.values[rValIndex])}></div>
               </div>
               )
           })

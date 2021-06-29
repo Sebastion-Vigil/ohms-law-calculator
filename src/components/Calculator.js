@@ -12,32 +12,37 @@ const Calculator = () => {
   ])
   const values = useState(['Watts', 'Volts', 'Ohms', 'Amps'])
   const [renderedTitle, setRenderedTitle] = useState(0) // index into titles, updates as needed
-  const renderedValues = useState([0, 1, 2, 3]) // indexes into values, splices as needed
+  const [renderedValues, setRenderedVals] = useState([0, 1, 2, 3]) // indexes into values, splice as needed
 
-  const userSelectValue = () => {
-    console.log('user selected a value!')
+  const userSelectValue = (val) => {
+    if (renderedTitle >= 1) return
+    console.log('user selected a value!', val)
+    const selectedIndex = values.indexOf(val)
+    const updatedVals = renderedValues
+    updatedVals.splice(selectedIndex, 1)
+    setRenderedVals(updatedVals)
+    setRenderedTitle(1)
   }
 
-  const userInputValue = () => {
-    console.log('user input value!')
+  const userInputValue = (val) => {
+    console.log('user input value!', val)
   }
 
-  const calculateUserInput = () => {
-    console.log('calculated user input!')
+  const calculateUserInput = (val) => {
+    console.log('calculated user input!', val)
   }
 
-  const handleUserInput = () => {
+  const handleUserInput = (val) => {
     const handleInput = [userSelectValue, userInputValue, calculateUserInput][renderedTitle]
-    handleInput()
+    handleInput(val)
   }
 
   return (
     <div className='calculator'>
       <Screen
-        titles={titles[0]}
-        currentTitle={renderedTitle}
+        currentTitle={titles[0][renderedTitle]}
         values={values[0]}
-        renderedValIndexes={renderedValues[0]}
+        renderedValIndexes={renderedValues}
         handleUser={handleUserInput}
       />
     </div>
