@@ -6,10 +6,23 @@ const Screen = props => {
   useEffect(() => {
     console.log('hola!')
   }, [props.excludedValue])
+  const func = () => {
+      console.log(props.renderedVals)
+  }
   return (
-    <div className='screen'>
+    <div className='screen' >
       <div className='title'>{props.currentTitle}</div>
-
+      {
+          props.renderedVals[0].map((rVal, i) => {
+              return (
+                <div key={i} className='user-select-value'>
+                <div className='value-name'>{props.values[rVal]}</div>
+                <div className='divider'></div>
+                <div className='user-select-button'></div>
+              </div>
+              )
+          })
+      }
     </div>
   )
 }
