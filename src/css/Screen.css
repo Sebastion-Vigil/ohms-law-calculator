@@ -8,3 +8,36 @@
     border: 1px solid blue;
 }
 
+.user-select-value {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 300px;
+    height: 60px;
+    border: .5px solid green;
+}
+
+.title {
+    width: 300px;
+    height: 60px;
+    border: .5px solid blue;
+}
+
+.value-name {
+  width: 55px;
+  height: 55px;
+  border: .5px solid purple;
+}
+
+.divider {
+    width: 180px;
+    height: 55px;
+    background-color: black;
+}
+
+.user-select-button {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background-color: darkgreen;
+}
