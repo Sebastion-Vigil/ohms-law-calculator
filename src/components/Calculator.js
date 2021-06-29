@@ -14,26 +14,31 @@ const Calculator = () => {
   const [renderedTitle, setRenderedTitle] = useState(0) // index into titles, updates as needed
   const [renderedValues, setRenderedVals] = useState([0, 1, 2, 3]) // indexes into values, splice as needed
 
-  const userSelectValue = (val) => {
-    if (renderedTitle >= 1) return
-    console.log('user selected a value!', val)
-    const selectedIndex = values.indexOf(val)
+  useEffect(() => {
+      console.log('hello!')
+  }, [renderedValues]) // fires every time dependency changes
+
+  const userSelectValue = val => {
+    if (renderedTitle > 0) return 
+    console.log('user selected a value!', values[0][val])
     const updatedVals = renderedValues
-    updatedVals.splice(selectedIndex, 1)
+    updatedVals.splice(val, 1)
     setRenderedVals(updatedVals)
     setRenderedTitle(1)
   }
 
-  const userInputValue = (val) => {
+  const userInputValue = val => {
     console.log('user input value!', val)
   }
 
-  const calculateUserInput = (val) => {
+  const calculateUserInput = val => {
     console.log('calculated user input!', val)
   }
 
-  const handleUserInput = (val) => {
-    const handleInput = [userSelectValue, userInputValue, calculateUserInput][renderedTitle]
+  const handleUserInput = val => {
+    const handleInput = [userSelectValue, userInputValue, calculateUserInput][
+      renderedTitle
+    ]
     handleInput(val)
   }
 
