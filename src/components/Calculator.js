@@ -12,28 +12,31 @@ const Calculator = () => {
     'Answer' // 3 Calculate and return answer
   ])
   const values = useState(['Watts', 'Volts', 'Ohms', 'Amps'])
+  const [valueSought, setValueSought] = useState('no selection')
   const [renderedTitle, setRenderedTitle] = useState(0) // index into titles, updates as needed
   const [renderedValues, setRenderedVals] = useState([0, 1, 2, 3]) // indexes into values, splice as needed
   const [userInputVals, setUserInputVals] = useState([undefined, undefined]) // both truthy when value pair complete
 
   useEffect(() => {
     console.log('Calculator useEffect invoked')
-  }, [renderedValues, userInputVals]) // fires onMount & every time dependency changes
+  }, [renderedValues, userInputVals, valueSought]) // fires onMount & every time dependency changes
 
   const userSelectValue = val => {
     // console.log('userInputVals in userSelectValue: ', userInputVals[0], userInputVals[1])
     console.log('user selected a value!', values[0][val])
-    const updatedVals = [...renderedValues]
-    updatedVals.splice(val, 1)
-    setRenderedVals(updatedVals)
+    const updatedRenderedVals = [...renderedValues]
+    let valSought = valueSought
+    valSought = values[0][val]
+    updatedRenderedVals.splice(val, 1)
+    setRenderedVals(updatedRenderedVals)
     setRenderedTitle(1)
+    setValueSought(valSought)
   }
 
-  const userInputValue = val => {
-    // console.log('userInputVals in userInputValue: ', userInputVals[0], userInputVals[1])
+  const userInputValue = val => { // dont like the way newTile handled => 2 refactor
     const newTitle = userInputVals[0] && !userInputVals[1] ? 2 : renderedTitle
+    const updatedRenderedVals = [...renderedValues]
     const updatedUserInput = [...userInputVals]
-    // console.log('user input value!', val)
     if (!userInputVals[0] && !userInputVals[1]) {
       console.log('Recording first user input', values[0][val])
       updatedUserInput[0] = values[0][val]
@@ -41,9 +44,24 @@ const Calculator = () => {
     if (userInputVals[0] && !userInputVals[1]) {
       console.log('Recording second user input', values[0][val])
       updatedUserInput[1] = values[0][val]
+      // upon entering 2nd val change renderedVals to exlude unselected val
+      // get index address of two selected vals, make that new arr w/only 2 vals
+      // or find index of unselected value 
+      // console.log('index value of 1st recorded value: ', values[0].indexOf(updatedUserInput[0]), updatedUserInput[0])
+      // console.log('index value of 2nd recorded value: ', values[0].indexOf(values[0][val]), values[0][val])
+      // index address actual element inside renderedValues
+      for (let i = 0; i < values[0].length; i++) {
+        if (values[0][i] !== valueSought && values[0][i] !== updatedUserInput[0] && values[0][i] !== values[0][val]) {
+          console.log('the missing link! ', values[0][i], i)
+          console.log('the other missing link!' , updatedRenderedVals.indexOf(i))
+          updatedRenderedVals.splice(updatedRenderedVals.indexOf(i), 1)
+          console.log('here: ', updatedRenderedVals)
+        }
+      }
     }
-    setUserInputVals(updatedUserInput)
     setRenderedTitle(newTitle)
+    setRenderedVals(updatedRenderedVals)
+    setUserInputVals(updatedUserInput)
   }
 
   const calculateUserInput = val => {
