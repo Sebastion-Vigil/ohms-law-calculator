@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import Screen from './Screen.js'
 
@@ -7,21 +7,41 @@ import '../css/calculator.css'
 const Calculator = () => {
   const titles = useState(['Searching for which value?', 'Which 2 values known?', 'Answer']) 
   const values = useState(['Watts', 'Volts', 'Ohms', 'Amps'])
-  const renderedTitle = useState(0)
+  const [renderedTitle, setRenderedTitle] = useState(0)
   const renderedValues = useState([0, 1, 2, 3])
-  const [excludedVal, setExcludedVal] = useState('none') // bout to get rid of dis 4 ^^^
-  const userSelect = (val) => {
-    console.log(val)
-    setExcludedVal(val)
+
+
+
+  const testFunc = () => {
+      let newTitle = renderedTitle
+      newTitle += 1
+      if (newTitle > 2) newTitle = 0
+    //   console.log('newTitle index: ', newTitle)
+      setRenderedTitle(newTitle)
   }
+
+  const firstFunc = () => {
+      console.log('first function!')
+  }
+
+  const otherFunc = () => {
+      console.log('other function!')
+  }
+
+  const experimentFunc = () => {
+    const toReturn = renderedTitle === 0 ? firstFunc : otherFunc
+    toReturn() // k this worked but had 2 invoke it will experiment more later
+  }
+
+  
   return (
-    <div className='calculator'>
+    <div className='calculator' >
         <Screen
-          currentTitle={titles[0][0]}
+          titles={titles[0]}
+          currentTitle={renderedTitle}
           values={values[0]}
-          renderedVals={renderedValues}
-          excludedValue={excludedVal}
-          handleUserSelect={userSelect}
+          renderedVals={renderedValues[0]}
+          func={experimentFunc}
         />
     </div>
   )

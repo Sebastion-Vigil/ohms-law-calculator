@@ -1,24 +1,21 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 // divider class name needs 2 b changed later, k?
 import '../css/Screen.css'
 
 const Screen = props => {
-  useEffect(() => {
-    console.log('hola!')
-  }, [props.excludedValue])
-  const func = () => {
-      console.log(props.renderedVals)
-  }
+//   useEffect(() => {
+//       console.log('hola!')
+//   }, [props])
   return (
     <div className='screen' >
-      <div className='title'>{props.currentTitle}</div>
+      <div className='title'>{props.titles[props.currentTitle]}</div>
       {
-          props.renderedVals[0].map((rVal, i) => {
+          props.renderedVals.map((rVal, i) => {
               return (
                 <div key={i} className='user-select-value'>
                 <div className='value-name'>{props.values[rVal]}</div>
                 <div className='divider'></div>
-                <div className='user-select-button'></div>
+                <div className='user-select-button' onClick={props.func}></div>
               </div>
               )
           })
