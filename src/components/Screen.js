@@ -3,14 +3,13 @@ import React, { useEffect } from 'react'
 import '../css/Screen.css'
 
 const Screen = props => {
-    // useEffect(() => {
-    //     console.log('hola!')
-    // }, [props])
+  // useEffect(() => {
+  //     console.log('Screen useEffect invoked')
+  // }, [props])
   return (
     <div className='screen'>
       <div className='title'>{props.currentTitle}</div>
       {props.renderedValIndexes.map((rValIndex, i) => {
-        // console.log('rValIndex: ', rValIndex)
         return (
           <div key={i} className='user-select-value'>
             <div className='value-name'>{props.values[rValIndex]}</div>

@@ -3,25 +3,26 @@ import React, { useState, useEffect } from 'react'
 import Screen from './Screen.js'
 
 import '../css/calculator.css'
-
+// learny learny https://stackoverflow.com/questions/54620928/useeffect-hook-not-firing-after-state-change#54621059
 const Calculator = () => {
   const titles = useState([
-    'Searching for which value?',
-    'Which 2 values known?',
-    'Answer'
+    // 3 main states of app process:
+    'Searching for which value?', // 1 Select value
+    'Which 2 values known?', // 2 Get two known values
+    'Answer' // 3 Calculate and return answer
   ])
   const values = useState(['Watts', 'Volts', 'Ohms', 'Amps'])
   const [renderedTitle, setRenderedTitle] = useState(0) // index into titles, updates as needed
   const [renderedValues, setRenderedVals] = useState([0, 1, 2, 3]) // indexes into values, splice as needed
 
   useEffect(() => {
-      console.log('hello!')
+    console.log('Calculator useEffect invoked')
   }, [renderedValues]) // fires every time dependency changes
 
   const userSelectValue = val => {
-    if (renderedTitle > 0) return 
+    if (renderedTitle > 0) return
     console.log('user selected a value!', values[0][val])
-    const updatedVals = renderedValues
+    const updatedVals = [...renderedValues]
     updatedVals.splice(val, 1)
     setRenderedVals(updatedVals)
     setRenderedTitle(1)
