@@ -12,11 +12,11 @@ const Calculator = () => {
     'Answer' // 3 Calculate and return answer
   ])
   const values = useState(['Watts', 'Volts', 'Ohms', 'Amps'])
-  const [valueSought, setValueSought] = useState('no selection')
+  const [valueSought, setValueSought] = useState('no selection') // instead y not create working copies of data to mutate freely
   const [renderedTitle, setRenderedTitle] = useState(0) // index into titles, updates as needed
   const [renderedValues, setRenderedVals] = useState([0, 1, 2, 3]) // indexes into values, splice as needed
   const [userInputVals, setUserInputVals] = useState([undefined, undefined]) // both truthy when value pair complete
-
+  // no likely la lógica aquí better yet keep all app process data immutable and use filter()
   useEffect(() => {
     console.log('Calculator useEffect invoked')
   }, [renderedValues, userInputVals, valueSought]) // fires onMount & every time dependency changes
@@ -42,19 +42,12 @@ const Calculator = () => {
     if (!userInputVals[0] && !userInputVals[1]) {
       console.log('Recording first user input', values[0][val])
       updatedUserInput[0] = values[0][val]
+      updatedRenderedVals.splice(updatedRenderedVals.indexOf(val), 1)
     }
     if (userInputVals[0] && !userInputVals[1]) {
       console.log('Recording second user input', values[0][val])
       updatedUserInput[1] = values[0][val]
-      for (let i = 0; i < values[0].length; i++) {
-        if (
-          values[0][i] !== valueSought &&
-          values[0][i] !== updatedUserInput[0] &&
-          values[0][i] !== values[0][val]
-        ) {
-          updatedRenderedVals.splice(updatedRenderedVals.indexOf(i), 1)
-        }
-      }
+      updatedRenderedVals.splice(updatedRenderedVals.indexOf(val), 1)
     }
     console.log('updatedRenderedVals in useInputValue: ', updatedRenderedVals)
     setRenderedTitle(newTitle)
