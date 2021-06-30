@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 import Screen from './Screen.js'
-// fuck GitHub
-// https://stackoverflow.com/questions/68191144/github-remote-push-failed
+
 import '../css/calculator.css'
 
 const Calculator = () => {
@@ -18,12 +17,13 @@ const Calculator = () => {
   const [renderedTitle, setRenderedTitle] = useState(0) // index into titles, updates as needed
   const [renderedValues, setRenderedVals] = useState([0, 1, 2, 3]) // indexes into values, splice as needed
   const [userInputVals, setUserInputVals] = useState([undefined, undefined]) // both truthy when value pair complete
-  
+
   useEffect(() => {
-    console.log('Calculator useEffect invoked: ')
+    // console.log('Calculator useEffect invoked: ')
   }, [renderedValues, userInputVals, valueSought, answerReady]) // fires onMount & every time dependency changes
 
-  const userSelectValue = (val) => { // step # 1 determine value sought by user
+  const userSelectValue = val => {
+    // step # 1 determine value sought by user
     // console.log('user selected a value!', values[0][val])
     const updatedRenderedVals = [...renderedValues]
     let valSought = valueSought
@@ -35,17 +35,20 @@ const Calculator = () => {
     // console.log('End of step 1')
   }
 
-  const userInputValue = (val) => { // step # 2 get two vals known by user 
+  const userInputValue = val => {
+    // step # 2 get two vals known by user
     // dont like the way newTile handled => 2 refactor
     const newTitle = userInputVals[0] && !userInputVals[1] ? 2 : renderedTitle
     const updatedRenderedVals = [...renderedValues]
     const updatedUserInput = [...userInputVals]
-    if (!userInputVals[0] && !userInputVals[1]) { // if neither val recorded, do step # 2 part a
+    if (!userInputVals[0] && !userInputVals[1]) {
+      // if neither val recorded, do step # 2 part a
       // console.log('Recording first user input', values[0][val])
-      updatedUserInput[0] = values[0][val]
+      updatedUserInput[0] = values[0][val] // => implement keyboard pop-up logic before renderedVals updated
       updatedRenderedVals.splice(updatedRenderedVals.indexOf(val), 1)
     }
-    if (userInputVals[0] && !userInputVals[1]) { // if 1st val recorded, do step #2 part b
+    if (userInputVals[0] && !userInputVals[1]) {
+      // if 1st val recorded, do step #2 part b
       // console.log('Recording second user input', values[0][val])
       updatedUserInput[1] = values[0][val]
       updatedRenderedVals.splice(updatedRenderedVals.indexOf(val), 1)
@@ -60,12 +63,11 @@ const Calculator = () => {
     setUserInputVals(updatedUserInput)
   }
 
-  const calculateUserInput = (val) => {
+  const calculateUserInput = val => {
     console.log('calculated user input!', val)
-    
   }
 
-  const handleUserInput = (val) => {
+  const handleUserInput = val => {
     // returns f() needed for current title/step of app process
     const handleInput = [userSelectValue, userInputValue, calculateUserInput][
       renderedTitle

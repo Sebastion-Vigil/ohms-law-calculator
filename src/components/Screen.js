@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from 'react'
 
 import Answer from './Answer.js'
+import Keyboard from './Keyboard.js'
 
 import '../css/Screen.css'
 
 const Screen = props => {
+
   useEffect(() => {
-    console.log('Screen useEffect invoked')
-    console.log('answer in Screen: ', props.answer)
+    // console.log('Screen useEffect invoked')
+    // console.log('answer in Screen: ', props.answer)
+    // console.log(keyboardActive)
   }, [props])
+
+  const [keyboardActive, toggleKeyboard] = useState('none')
 
   return (
     <div className='screen'>
@@ -37,6 +42,7 @@ const Screen = props => {
           )
         })
       }
+      <Keyboard />
     </div>
   )
 }

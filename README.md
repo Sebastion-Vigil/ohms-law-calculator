@@ -31,3 +31,7 @@ An Ohm's Law calculator app for electricians and other technicians in the field.
 - Calculator useEffect invoked
 - calculated user input! 3
 - userInputVals in calculateUserInput: Volts Ohms
+
+### ToDo ###
+- See if any code can be easily simplified, i.e., helper functions etc.
+- Implement basic toggle functionality for Answer in Screen
