@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 
 import Screen from './Screen.js'
-
+// fuck GitHub
+// https://stackoverflow.com/questions/68191144/github-remote-push-failed
 import '../css/calculator.css'
 
 const Calculator = () => {
@@ -20,7 +21,6 @@ const Calculator = () => {
   
   useEffect(() => {
     console.log('Calculator useEffect invoked: ')
-    console.log('answerReady: ', answerReady)
   }, [renderedValues, userInputVals, valueSought, answerReady]) // fires onMount & every time dependency changes
 
   const userSelectValue = (val) => { // step # 1 determine value sought by user
@@ -51,7 +51,7 @@ const Calculator = () => {
       updatedRenderedVals.splice(updatedRenderedVals.indexOf(val), 1)
       updatedRenderedVals.pop()
       const readyAnswer = answerReady
-      readyAnswer.push('Here is your answer!')
+      readyAnswer.push('Calculating answer...')
       sendAnswer(readyAnswer)
       // console.log('End of step 2')
     }
