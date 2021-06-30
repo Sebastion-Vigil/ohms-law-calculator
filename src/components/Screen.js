@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react'
-// divider class name needs 2 b changed later, k?
+
+import Answer from './Answer.js'
+
 import '../css/Screen.css'
 
 const Screen = props => {
   useEffect(() => {
     console.log('Screen useEffect invoked')
+    console.log('answer in Screen: ', props.answer)
   }, [props])
 
   return (
@@ -24,6 +27,16 @@ const Screen = props => {
           </div>
         )
       })}
+      {
+        props.answer.map((ans, i) => {
+          return (
+            <Answer
+              key={i}
+              ans={props.answer[i]}
+            />
+          )
+        })
+      }
     </div>
   )
 }
