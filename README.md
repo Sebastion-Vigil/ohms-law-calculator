@@ -34,4 +34,4 @@ An Ohm's Law calculator app for electricians and other technicians in the field.
 
 ### ToDo ###
 - See if any code can be easily simplified, i.e., helper functions etc.
-- Implement basic toggle functionality for Answer in Screen
+- Implement basic toggle functionality for Keyboard in Screen

@@ -4,7 +4,7 @@ import '../css/Answer.css'
 
 const Answer = (props) => {
     return (
-        <div className='answer'>{props.ans}</div>
+        <div className='answer'>{props.answer}</div>
     )
 }
 

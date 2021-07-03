@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 
 import Answer from './Answer.js'
 import Keyboard from './Keyboard.js'
@@ -6,43 +6,38 @@ import Keyboard from './Keyboard.js'
 import '../css/Screen.css'
 
 const Screen = props => {
-
   useEffect(() => {
     // console.log('Screen useEffect invoked')
-    // console.log('answer in Screen: ', props.answer)
-    // console.log(keyboardActive)
   }, [props])
-
-  const [keyboardActive, toggleKeyboard] = useState('none')
 
   return (
     <div className='screen'>
       <div className='title'>{props.currentTitle}</div>
-      {props.renderedValIndexes.map((rValIndex, i) => {
+      {props.values.map((val, i) => {
         return (
-          <div key={i} className='user-select-value'>
-            <div className='value-name'>{props.values[rValIndex]}</div>
+          <div
+            key={i}
+            className='user-select-value'
+            id={val}
+            style={{
+              visibility: props.bttnVisibility[i]
+            }}
+          >
+            <div className='value-name'>{val}</div>
             <div className='divider'></div>
             <div
               className='user-select-button'
               onClick={() => {
-                props.handleUser(rValIndex)
+                props.handleUser(i)
               }}
             ></div>
           </div>
         )
       })}
-      {
-        props.answer.map((ans, i) => {
-          return (
-            <Answer
-              key={i}
-              ans={props.answer[i]}
-            />
-          )
-        })
-      }
-      <Keyboard />
+      {props.answer.map((a, i) => {
+        return <Answer key={i} answer={a} />
+      })}
+      {props.keyboardActive ? <Keyboard tst={`Ohms`} /> : null}
     </div>
   )
 }

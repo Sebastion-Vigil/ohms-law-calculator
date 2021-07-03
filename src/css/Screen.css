@@ -5,7 +5,7 @@
     align-items: center;
     width: 310px;
     height: 450px;
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
 }
 
 .user-select-value {
@@ -14,19 +14,22 @@
     align-items: center;
     width: 300px;
     height: 60px;
-    border: .5px solid green;
+    background-color: sienna;
+    /* border: .5px solid green; */
 }
 
 .title {
     width: 300px;
     height: 60px;
-    border: .5px solid blue;
+    background-color: lightskyblue;
+    /* border: .5px solid blue; */
 }
 
 .value-name {
   width: 55px;
   height: 55px;
-  border: .5px solid purple;
+  background-color: magenta;
+  /* border: .5px solid purple; */
 }
 
 .divider {
@@ -39,5 +42,6 @@
     width: 55px;
     height: 55px;
     border-radius: 50%;
-    border: .5px solid gold;
+    background-color: darkgoldenrod;
+    /* border: .5px solid gold; */
 }
