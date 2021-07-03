@@ -17,8 +17,7 @@ const Keyboard = props => {
     '.',
     '<=',
     '+/-',
-    'Enter',
-    'Cancel'
+    'Enter'
   ])
   useEffect(() => {
     console.log('keyboardButtons[0]: ', keyboardButtons[0])
@@ -32,6 +31,7 @@ const Keyboard = props => {
           </div>
         )
       })}
+      <div className='key' id='exit' onClick={props.toggle}>Cancel</div>
     </div>
   )
 }

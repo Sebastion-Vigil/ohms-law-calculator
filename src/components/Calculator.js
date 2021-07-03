@@ -24,6 +24,11 @@ const Calculator = () => {
     // console.log('Calculator useEffect invoked: ')
   }, [userInputVals, valueSought, answerReady, bttnVisibility, keyboard]) // fires onMount & every time dependency changes
 
+  const toggleKeyboard = () => {
+    let toggled = !keyboard
+    setKeyboard(toggled)
+  }
+
   const handleButtonVisibility = i => {
     const bttns = [...bttnVisibility]
     bttns[i] = 'hidden'
@@ -44,6 +49,7 @@ const Calculator = () => {
   const getUserInput = val => {
     const newTitle = userInputVals[0] && !userInputVals[1] ? 2 : renderedTitle
     handleButtonVisibility(val)
+    toggleKeyboard()
     const updatedUserInput = [...userInputVals]
     const newInputIndex = !userInputVals[0] && !userInputVals[1] ? 0 : 1
     updatedUserInput[newInputIndex] = values[0][val]
@@ -82,33 +88,10 @@ const Calculator = () => {
         keyboardActive={keyboard}
         answer={answerReady}
         bttnVisibility={bttnVisibility}
+        toggleKeyboard={toggleKeyboard}
       />
     </div>
   )
 }
 export default Calculator
 // learny learny https://stackoverflow.com/questions/54620928/useeffect-hook-not-firing-after-state-change#54621059
-
-// const getUserInput = val => {
-//   // dont like the way newTile handled => 2 refactor
-//   const newTitle = userInputVals[0] && !userInputVals[1] ? 2 : renderedTitle
-//   const updatedRenderedVals = [...renderedValues]
-//   const updatedUserInput = [...userInputVals]
-//   if (!userInputVals[0] && !userInputVals[1]) {
-//     // if neither val recorded, do step # 2 part a
-//     updatedUserInput[0] = values[0][val] // => implement keyboard pop-up logic before renderedVals updated
-//     updatedRenderedVals.splice(updatedRenderedVals.indexOf(val), 1) // console.log('Recording first user input', values[0][val])
-//   }
-//   if (userInputVals[0] && !userInputVals[1]) {
-//     // if 1st val recorded, do step #2 part b
-//     updatedUserInput[1] = values[0][val] // console.log('Recording second user input', values[0][val])
-//     updatedRenderedVals.splice(updatedRenderedVals.indexOf(val), 1)
-//     updatedRenderedVals.pop()
-//     const readyAnswer = answerReady
-//     readyAnswer.push('Calculating answer...')
-//     sendAnswer(readyAnswer) // console.log('End of step 2')
-//   }
-//   setRenderedTitle(newTitle)
-//   setRenderedVals(updatedRenderedVals)
-//   setUserInputVals(updatedUserInput)
-// }

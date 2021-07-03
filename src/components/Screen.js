@@ -37,7 +37,7 @@ const Screen = props => {
       {props.answer.map((a, i) => {
         return <Answer key={i} answer={a} />
       })}
-      {props.keyboardActive ? <Keyboard tst={`Ohms`} /> : null}
+      {props.keyboardActive ? <Keyboard toggle={props.toggleKeyboard} /> : null}
     </div>
   )
 }
