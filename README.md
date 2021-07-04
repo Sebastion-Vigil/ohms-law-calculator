@@ -21,17 +21,6 @@ An Ohm's Law calculator app for electricians and other technicians in the field.
 - Does project need any classes
 - Generate markup in clean, organized manner
 
-### flow of app (see console comments)
-
-- user selected a value! Watts
-- Calculator useEffect invoked
-- Recording first user input Volts
-- Calculator useEffect invoked
-- Recording second user input Ohms
-- Calculator useEffect invoked
-- calculated user input! 3
-- userInputVals in calculateUserInput: Volts Ohms
-
 ### ToDo ###
 - See if any code can be easily simplified, i.e., helper functions etc.
 - ~~Implement basic toggle functionality for Keyboard in Screen~~
