@@ -47,6 +47,12 @@ const Calculator = () => {
   }
 
   // step # 2 get two vals known by user
+  // aight this f() needs 2b broken down into smaller chunks, 
+  // then do something similar to handleUserInput, have the specific
+  // f() called only when the time is right and in the proper sequence.
+  // taking this approach, how could i restructure the entire component?
+
+
   const getUserInput = val => {
     const newTitle = userInputVals[0] && !userInputVals[1] ? 2 : renderedTitle
     handleButtonVisibility(val)
