@@ -19,8 +19,8 @@ const Keyboard = props => {
     '+/-'
   ])
   useEffect(() => {
-    console.log('keyboardButtons[0]: ', keyboardButtons[0])
-    console.log('keyboard props: ', props)
+    // console.log('keyboardButtons[0]: ', keyboardButtons[0])
+    // console.log('keyboard props: ', props)
   })
   return (
     <div className='keyboard-container'>
@@ -32,7 +32,7 @@ const Keyboard = props => {
             </div>
           )
         })}
-        <div className='key' id='exit' onClick={props.handleKeyboardInput}>Enter</div>
+        <div className='key' id='submit-bttn' onClick={props.handleKeyboardInput}>Enter</div>
         <div className='key' id='exit' onClick={props.toggle}>
           Cancel
         </div>

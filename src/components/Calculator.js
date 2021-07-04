@@ -15,13 +15,14 @@ const Calculator = () => {
   const values = useState(['Watts', 'Volts', 'Ohms', 'Amps']) // the four Ohm's Law values
   const [valueSought, setValueSought] = useState('no selection') // store val sought by user
   const [keyboard, setKeyboard] = useState(false) // just a boolean & method to update it 
-  const [bttnVisibility, setBttnsVisibility] = useState(new Array(4).fill('visible'))
+  const [bttnVisibility, setBttnsVisibility] = useState(new Array(4).fill('visible')) // ? does it reset on every render? if so, bad
   const [answerReady, sendAnswer] = useState([])
   const [renderedTitle, setRenderedTitle] = useState(0) // index into titles, updates as needed
   const [userInputVals, setUserInputVals] = useState([undefined, undefined]) // both truthy when value pair complete
 
   useEffect(() => {
-    // console.log('Calculator useEffect invoked: ')
+    console.log('Calculator useEffect invoked: ')
+    console.log('bttnVisibility: ', bttnVisibility)
   }, [userInputVals, valueSought, answerReady, bttnVisibility, keyboard]) // fires onMount & every time dependency changes
 
   const toggleKeyboard = () => {
@@ -37,7 +38,7 @@ const Calculator = () => {
 
   // step # 1 determine value sought by user
   const handleUserSelect = val => {
-    console.log('user selected a value!', values[0][val], val)
+    // console.log('user selected a value!', values[0][val], val)
     handleButtonVisibility(val)
     let valSought = valueSought
     valSought = values[0][val]
@@ -54,12 +55,12 @@ const Calculator = () => {
     const newInputIndex = !userInputVals[0] && !userInputVals[1] ? 0 : 1
     updatedUserInput[newInputIndex] = values[0][val]
     if (newInputIndex === 1) { // if 1 then currently storing 2nd val
-      console.log('Recording 2nd user input', values[0][val])
+      // console.log('Recording 2nd user input', values[0][val])
       const bttns = [...bttnVisibility] 
       bttns.fill('hidden')
       setBttnsVisibility(bttns) // hide all bttns at this point
     } else { // otherwise currently storing 1st val
-      console.log('Recording 1st user input', values[0][val])
+      // console.log('Recording 1st user input', values[0][val])
     }
     setRenderedTitle(newTitle)
     setUserInputVals(updatedUserInput)
@@ -80,7 +81,7 @@ const Calculator = () => {
     handleInput(val)
   }
 
-  const handleKeyInput = () => {
+  const handleKeyInput = () => { // test f() just 2 see it worky
     console.log('keyboard input handled!')
   }
   return (
