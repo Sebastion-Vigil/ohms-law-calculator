@@ -13,29 +13,40 @@ const Screen = props => {
     <div className='screen'>
       <div className='title-bar'>
         <div className='title'>{props.currentTitle}</div>
-        <div className='title-display'></div>
+        <div className='title-display'>{props.display}</div>
       </div>
-      {props.values.map((val, i) => {
-        return (
-          <div
-            key={i}
-            className='user-select-value'
-            style={{
-              visibility: props.bttnVisibility[i]
-            }}
-          >
-            <div className='value-name'>{val}</div>
-            <div className='divider'></div>
+      {props.values
+        .filter(val => isNaN(parseInt(val)))
+        .map((val, i) => {
+          return (
             <div
-              className='user-select-button'
-              onClick={() => {
-                props.handleUser(i)
+              key={i}
+              className='user-select-value'
+              style={{
+                visibility: props.bttnVisibility[i]
               }}
-            ></div>
-          </div>
-        )
-      })}
-      {props.keyboardActive ? <Keyboard toggle={props.toggleKeyboard} handleKeyboardInput={props.handleKey} /> : null}
+            >
+              <div className='value-name'>{val}</div>
+              <div className='divider'></div>
+              <div
+                className='user-select-button'
+                onClick={() => {
+                  props.handleUser(i)
+                }}
+              ></div>
+            </div>
+          )
+        })}
+      {props.keyboardActive ? (
+        <Keyboard
+          toggle={props.toggleKeyboard}
+          handleEnterKey={props.handleEnterKey}
+          handleNumKey={props.handleNumKey}
+          handleDecimalKey={props.handleDecimalKey}
+          handleBackspaceKey={props.handleBackspaceKey}
+          handleNegIntKey={props.handleNegIntKey}
+        />
+      ) : null}
     </div>
   )
 }

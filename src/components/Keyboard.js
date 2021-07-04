@@ -13,10 +13,7 @@ const Keyboard = props => {
     '1',
     '2',
     '3',
-    '0',
-    '.',
-    '<=',
-    '+/-'
+    '0'
   ])
   useEffect(() => {
     // console.log('keyboardButtons[0]: ', keyboardButtons[0])
@@ -27,13 +24,16 @@ const Keyboard = props => {
       <div className='keyboard'>
         {keyboardButtons[0].map((bttn, i) => {
           return (
-            <div key={i} className='key'>
+            <div key={i} className='key' onClick={() => props.handleNumKey(bttn)}>
               {bttn}
             </div>
           )
         })}
-        <div className='key' id='submit-bttn' onClick={props.handleKeyboardInput}>Enter</div>
-        <div className='key' id='exit' onClick={props.toggle}>
+        <div className='key' id='decimal-bttn' onClick={props.handleDecimalKey}>{`.`}</div>
+        <div className='key' id='backspace-bttn' onClick={props.handleBackspaceKey}>{`<=`}</div>
+        <div className='key' id='neg-int-bttn' onClick={props.handleNegIntKey}>{`+/-`}</div>
+        <div className='key' id='enter-bttn' onClick={props.handleEnterKey}>{`Enter`}</div>
+        <div className='key' id='exit-bttn' onClick={props.toggle}>
           Cancel
         </div>
       </div>

@@ -12,9 +12,10 @@ const Calculator = () => {
     'Answer' // 3 Calculate and return answer
   ])
 
-  const values = useState(['Watts', 'Volts', 'Ohms', 'Amps']) // the four Ohm's Law values
+  const values = useState(['Watts', '0', 'Volts', '0', 'Ohms', '0', 'Amps', '0']) // 4 Ohm's Law Vals, each followed by quantity 2 b inserted from Keyboard
   const [valueSought, setValueSought] = useState('no selection') // store val sought by user
   const [keyboard, setKeyboard] = useState(false) // just a boolean & method to update it 
+  const [display, setDisplay] = useState('') // here we go ya'll 
   const [bttnVisibility, setBttnsVisibility] = useState(new Array(4).fill('visible')) // ? does it reset on every render? if so, bad
   const [answerReady, sendAnswer] = useState([])
   const [renderedTitle, setRenderedTitle] = useState(0) // index into titles, updates as needed
@@ -22,8 +23,8 @@ const Calculator = () => {
 
   useEffect(() => {
     console.log('Calculator useEffect invoked: ')
-    console.log('bttnVisibility: ', bttnVisibility)
-  }, [userInputVals, valueSought, answerReady, bttnVisibility, keyboard]) // fires onMount & every time dependency changes
+    console.log('display state: ', display)
+  }, [userInputVals, valueSought, answerReady, bttnVisibility, keyboard, display]) // fires onMount & every time dependency changes
 
   const toggleKeyboard = () => {
     let toggled = !keyboard
@@ -74,9 +75,9 @@ const Calculator = () => {
 
   const calculateUserInput = val => {
     // console.log('calculated user input!', val)
-    const readyAnswer = answerReady
-    readyAnswer.push('Calculating answer...')
-    sendAnswer(readyAnswer)
+    // const readyAnswer = answerReady
+    // readyAnswer.push('Calculating answer...')
+    // sendAnswer(readyAnswer)
   }
 
   const handleUserInput = val => {
@@ -87,20 +88,46 @@ const Calculator = () => {
     handleInput(val)
   }
 
-  const handleKeyInput = () => { // test f() just 2 see it worky
-    console.log('keyboard input handled!')
+  // all below f() s 4 Keyboard.js
+
+  const handleNumKey = (num) => {
+    console.log('Number entered!', num, typeof num)
+    let currentDisplay = display
+    currentDisplay += num
+    setDisplay(currentDisplay)
+  }
+  
+  const handleDecimalKey = () => {
+     console.log('Decimal key clicked!')
+  }
+
+  const handleBackspaceKey = () => {
+    console.log('Backspace key clicked!')
+  }
+
+  const handleNegIntKey = () => {
+    console.log("Negative int toggle key clicked!")
+  }
+
+  const handleEnterKey = () => { // test f() just 2 see it worky
+    console.log('Enter key clicked!')
   }
   return (
     <div className='calculator'>
       <Screen
         currentTitle={titles[0][renderedTitle]}
         values={values[0]}
-        handleUser={handleUserInput}
         keyboardActive={keyboard}
         answer={answerReady}
         bttnVisibility={bttnVisibility}
         toggleKeyboard={toggleKeyboard}
-        handleKey={handleKeyInput}
+        handleUser={handleUserInput}
+        handleNumKey={handleNumKey}
+        handleDecimalKey={handleDecimalKey}
+        handleBackspaceKey={handleBackspaceKey}
+        handleNegIntKey={handleNegIntKey}
+        handleEnterKey={handleEnterKey}
+        display={display}
       />
     </div>
   )
