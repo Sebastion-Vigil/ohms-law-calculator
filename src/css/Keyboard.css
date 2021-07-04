@@ -1,6 +1,17 @@
-.keyboard {
+.keyboard-container {
   position: absolute;
-  top: 170px;
+  top: 160px;
+  width: 310px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  background-color: goldenrod;
+}
+
+
+.keyboard {
   width: 250px;
   height: 290px;
   background-color: midnightblue;

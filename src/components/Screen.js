@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 
-import Answer from './Answer.js'
 import Keyboard from './Keyboard.js'
 
 import '../css/Screen.css'
@@ -12,13 +11,15 @@ const Screen = props => {
 
   return (
     <div className='screen'>
-      <div className='title'>{props.currentTitle}</div>
+      <div className='title-bar'>
+        <div className='title'>{props.currentTitle}</div>
+        <div className='title-display'></div>
+      </div>
       {props.values.map((val, i) => {
         return (
           <div
             key={i}
             className='user-select-value'
-            id={val}
             style={{
               visibility: props.bttnVisibility[i]
             }}
@@ -34,10 +35,7 @@ const Screen = props => {
           </div>
         )
       })}
-      {props.answer.map((a, i) => {
-        return <Answer key={i} answer={a} />
-      })}
-      {props.keyboardActive ? <Keyboard toggle={props.toggleKeyboard} /> : null}
+      {props.keyboardActive ? <Keyboard toggle={props.toggleKeyboard} handleKeyboardInput={props.handleKey} /> : null}
     </div>
   )
 }

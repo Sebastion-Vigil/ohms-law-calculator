@@ -79,6 +79,10 @@ const Calculator = () => {
     ]
     handleInput(val)
   }
+
+  const handleKeyInput = () => {
+    console.log('keyboard input handled!')
+  }
   return (
     <div className='calculator'>
       <Screen
@@ -89,6 +93,7 @@ const Calculator = () => {
         answer={answerReady}
         bttnVisibility={bttnVisibility}
         toggleKeyboard={toggleKeyboard}
+        handleKey={handleKeyInput}
       />
     </div>
   )

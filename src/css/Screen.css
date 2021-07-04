@@ -1,7 +1,7 @@
 .screen {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-evenly;
     align-items: center;
     width: 310px;
     height: 450px;
@@ -13,34 +13,53 @@
     justify-content: space-evenly;
     align-items: center;
     width: 300px;
-    height: 60px;
+    height: 40px;
     background-color: sienna;
     /* border: .5px solid green; */
 }
 
+.title-bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  height: 120px;
+}
+
 .title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 300px;
-    height: 60px;
+    height: 40px;
     background-color: lightskyblue;
     /* border: .5px solid blue; */
 }
 
+.title-display {
+   width: 300px;
+   height: 80px;
+   background-color: black;
+   color: white;
+}
+
 .value-name {
-  width: 55px;
-  height: 55px;
+  width: 40px;
+  height: 40px;
   background-color: magenta;
   /* border: .5px solid purple; */
 }
 
 .divider {
     width: 180px;
-    height: 55px;
+    height: 40px;
     background-color: black;
 }
 
 .user-select-button {
-    width: 55px;
-    height: 55px;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
     background-color: darkgoldenrod;
     /* border: .5px solid gold; */
