@@ -12,11 +12,22 @@ const Calculator = () => {
     'Answer' // 3 Calculate and return answer
   ])
 
-  const values = useState(['Watts', '0', 'Volts', '0', 'Ohms', '0', 'Amps', '0']) // 4 Ohm's Law Vals, each followed by quantity 2 b inserted from Keyboard
+  const values = useState([
+    'Watts',
+    '0',
+    'Volts',
+    '0',
+    'Ohms',
+    '0',
+    'Amps',
+    '0'
+  ]) // 4 Ohm's Law Vals, each followed by quantity 2 b inserted from Keyboard
   const [valueSought, setValueSought] = useState('no selection') // store val sought by user
-  const [keyboard, setKeyboard] = useState(false) // just a boolean & method to update it 
-  const [display, setDisplay] = useState('') // here we go ya'll 
-  const [bttnVisibility, setBttnsVisibility] = useState(new Array(4).fill('visible')) // ? does it reset on every render? if so, bad
+  const [keyboard, setKeyboard] = useState(false) // just a boolean & method to update it
+  const [display, setDisplay] = useState('') // here we go ya'll
+  const [bttnVisibility, setBttnsVisibility] = useState(
+    new Array(4).fill('visible')
+  ) // ? does it reset on every render? if so, bad
   const [answerReady, sendAnswer] = useState([])
   const [renderedTitle, setRenderedTitle] = useState(0) // index into titles, updates as needed
   const [userInputVals, setUserInputVals] = useState([undefined, undefined]) // both truthy when value pair complete
@@ -24,12 +35,14 @@ const Calculator = () => {
   useEffect(() => {
     console.log('Calculator useEffect invoked: ')
     console.log('display state: ', display)
-  }, [userInputVals, valueSought, answerReady, bttnVisibility, keyboard, display]) // fires onMount & every time dependency changes
-
-  const toggleKeyboard = () => {
-    let toggled = !keyboard
-    setKeyboard(toggled)
-  }
+  }, [
+    userInputVals,
+    valueSought,
+    answerReady,
+    bttnVisibility,
+    keyboard,
+    display
+  ]) // fires onMount & every time dependency changes
 
   const handleButtonVisibility = i => {
     const bttns = [...bttnVisibility]
@@ -47,13 +60,6 @@ const Calculator = () => {
     setValueSought(valSought) // console.log('End of step 1')
   }
 
-  // step # 2 get two vals known by user
-  // aight this f() needs 2b broken down into smaller chunks, 
-  // then do something similar to handleUserInput, have the specific
-  // f() called only when the time is right and in the proper sequence.
-  // taking this approach, how could i restructure the entire component?
-
-
   const getUserInput = val => {
     const newTitle = userInputVals[0] && !userInputVals[1] ? 2 : renderedTitle
     handleButtonVisibility(val)
@@ -61,12 +67,14 @@ const Calculator = () => {
     const updatedUserInput = [...userInputVals]
     const newInputIndex = !userInputVals[0] && !userInputVals[1] ? 0 : 1
     updatedUserInput[newInputIndex] = values[0][val]
-    if (newInputIndex === 1) { // if 1 then currently storing 2nd val
+    if (newInputIndex === 1) {
+      // if 1 then currently storing 2nd val
       // console.log('Recording 2nd user input', values[0][val])
-      const bttns = [...bttnVisibility] 
+      const bttns = [...bttnVisibility]
       bttns.fill('hidden')
       setBttnsVisibility(bttns) // hide all bttns at this point
-    } else { // otherwise currently storing 1st val
+    } else {
+      // otherwise currently storing 1st val
       // console.log('Recording 1st user input', values[0][val])
     }
     setRenderedTitle(newTitle)
@@ -80,6 +88,31 @@ const Calculator = () => {
     // sendAnswer(readyAnswer)
   }
 
+  const calculateAnswer = (sought, v1, v2) => {
+    const OhmsVals = { // this works in node console! O(1) !!!
+      'Watts': {
+        'EI': { 'EIcalcWatts': function(a, b) { return a * b } },
+        'RI': { 'RIcalcWatts': function(a, b) { return a * b ** 2 } },
+        'ER': { 'ERcalcWatts': function(a, b) { return a ** 2 / b } }
+      },
+      'Volts': {
+        'RI': {'RIcalcVolts': function(a, b) {return a * b} },
+        'PI': {'PIcalcVolts': function(a, b) {return a / b } },
+        'PR': {'PRcalcVolts': function(a, b) {return (a * b) ** .5 }}
+      },
+      'Ohms': {
+        'EI': {'EIcalcOhms': function(a, b) {return a / b}},
+        'EP': {'EPcalcOhms': function(a, b) {return (a ** 2) / b}},
+        'PI': {'PIcalcOhms': function(a, b) {return a / (b ** 2)}}
+      },
+      'Amps': {
+        'ER': {'ERcalcAmps': function(a, b) {return a / b}},
+        'PE': {'PEcalcAmps': function(a, b) {return a / b}},
+        'PR': {'PRcalcAmps': function(a, b) {return (a / b) ** .5 }}
+      }
+    }
+  }
+  // https://www.calculator.net/ohms-law-calculator.html
   const handleUserInput = val => {
     // returns f() needed for current title/step of app process
     const handleInput = [handleUserSelect, getUserInput, calculateUserInput][
@@ -90,15 +123,20 @@ const Calculator = () => {
 
   // all below f() s 4 Keyboard.js
 
-  const handleNumKey = (num) => {
+  const toggleKeyboard = () => {
+    let toggled = !keyboard
+    setKeyboard(toggled)
+  }
+
+  const handleNumKey = num => {
     console.log('Number entered!', num, typeof num)
     let currentDisplay = display
     currentDisplay += num
     setDisplay(currentDisplay)
   }
-  
+
   const handleDecimalKey = () => {
-     console.log('Decimal key clicked!')
+    console.log('Decimal key clicked!')
   }
 
   const handleBackspaceKey = () => {
@@ -106,10 +144,11 @@ const Calculator = () => {
   }
 
   const handleNegIntKey = () => {
-    console.log("Negative int toggle key clicked!")
+    console.log('Negative int toggle key clicked!')
   }
 
-  const handleEnterKey = () => { // test f() just 2 see it worky
+  const handleEnterKey = () => {
+    // test f() just 2 see it worky
     console.log('Enter key clicked!')
   }
   return (
