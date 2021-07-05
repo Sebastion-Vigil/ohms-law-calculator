@@ -89,6 +89,8 @@ const Calculator = () => {
   }
 
   const calculateAnswer = (sought, v1, v2) => {
+    // need 2 ensure params passed in correct order 2 prevent incorrect answer
+    // 'EI' === 'IE'.split('').reverse().join('')
     const OhmsVals = { // this works in node console! O(1) !!!
       'Watts': {
         'EI': { 'EIcalcWatts': function(a, b) { return a * b } },
