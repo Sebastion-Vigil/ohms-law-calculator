@@ -14,15 +14,12 @@ const Calculator = () => {
 
   const values = useState([
     'Watts',
-    '0',
     'Volts',
-    '0',
-    'Ohms',
-    '0',
+    'Ohms', 
     'Amps',
-    '0'
-  ]) // 4 Ohm's Law Vals, each followed by quantity 2 b inserted from Keyboard
+    ])
   const [valueSought, setValueSought] = useState('no selection') // store val sought by user
+  const [userInputVals, setUserInputVals] = useState([undefined, undefined]) // both truthy when value pair complete
   const [keyboard, setKeyboard] = useState(false) // just a boolean & method to update it
   const [display, setDisplay] = useState('') // here we go ya'll
   const [bttnVisibility, setBttnsVisibility] = useState(
@@ -30,11 +27,10 @@ const Calculator = () => {
   ) // ? does it reset on every render? if so, bad
   const [answerReady, sendAnswer] = useState([])
   const [renderedTitle, setRenderedTitle] = useState(0) // index into titles, updates as needed
-  const [userInputVals, setUserInputVals] = useState([undefined, undefined]) // both truthy when value pair complete
 
   useEffect(() => {
-    console.log('Calculator useEffect invoked: ')
-    console.log('display state: ', display)
+    // console.log('Calculator useEffect invoked: ')
+    // console.log('display state: ', display)
   }, [
     userInputVals,
     valueSought,
@@ -44,6 +40,29 @@ const Calculator = () => {
     display
   ]) // fires onMount & every time dependency changes
 
+  const OhmsVals = { // this works in node console! O(1) !!!
+    'Watts': {
+      'EI': { 'EIcalcWatts': function(a, b) { return a * b } },
+      'RI': { 'RIcalcWatts': function(a, b) { return a * b ** 2 } },
+      'ER': { 'ERcalcWatts': function(a, b) { return a ** 2 / b } }
+    },
+    'Volts': {
+      'RI': {'RIcalcVolts': function(a, b) {return a * b} },
+      'PI': {'PIcalcVolts': function(a, b) {return a / b } },
+      'PR': {'PRcalcVolts': function(a, b) {return (a * b) ** .5 }}
+    },
+    'Ohms': {
+      'EI': {'EIcalcOhms': function(a, b) {return a / b}},
+      'EP': {'EPcalcOhms': function(a, b) {return (a ** 2) / b}},
+      'PI': {'PIcalcOhms': function(a, b) {return a / (b ** 2)}}
+    },
+    'Amps': {
+      'ER': {'ERcalcAmps': function(a, b) {return a / b}},
+      'PE': {'PEcalcAmps': function(a, b) {return a / b}},
+      'PR': {'PRcalcAmps': function(a, b) {return (a / b) ** .5 }}
+    }
+  }
+
   const handleButtonVisibility = i => {
     const bttns = [...bttnVisibility]
     bttns[i] = 'hidden'
@@ -52,7 +71,7 @@ const Calculator = () => {
 
   // step # 1 determine value sought by user
   const handleUserSelect = val => {
-    // console.log('user selected a value!', values[0][val], val)
+    console.log('user selected a value!', values[0][val], val)
     handleButtonVisibility(val)
     let valSought = valueSought
     valSought = values[0][val]
@@ -69,55 +88,30 @@ const Calculator = () => {
     updatedUserInput[newInputIndex] = values[0][val]
     if (newInputIndex === 1) {
       // if 1 then currently storing 2nd val
-      // console.log('Recording 2nd user input', values[0][val])
+      console.log('Recording 2nd user input', values[0][val], val)
       const bttns = [...bttnVisibility]
       bttns.fill('hidden')
       setBttnsVisibility(bttns) // hide all bttns at this point
     } else {
       // otherwise currently storing 1st val
-      // console.log('Recording 1st user input', values[0][val])
+      console.log('Recording 1st user input', values[0][val], val)
     }
     setRenderedTitle(newTitle)
     setUserInputVals(updatedUserInput)
   }
 
-  const calculateUserInput = val => {
+  const calculateAnswer = (sought, v1, v2) => {
+    // need 2 ensure params passed in correct order 2 prevent incorrect answer
+    // 'EI' === 'IE'.split('').reverse().join('')
     // console.log('calculated user input!', val)
     // const readyAnswer = answerReady
     // readyAnswer.push('Calculating answer...')
     // sendAnswer(readyAnswer)
   }
-
-  const calculateAnswer = (sought, v1, v2) => {
-    // need 2 ensure params passed in correct order 2 prevent incorrect answer
-    // 'EI' === 'IE'.split('').reverse().join('')
-    const OhmsVals = { // this works in node console! O(1) !!!
-      'Watts': {
-        'EI': { 'EIcalcWatts': function(a, b) { return a * b } },
-        'RI': { 'RIcalcWatts': function(a, b) { return a * b ** 2 } },
-        'ER': { 'ERcalcWatts': function(a, b) { return a ** 2 / b } }
-      },
-      'Volts': {
-        'RI': {'RIcalcVolts': function(a, b) {return a * b} },
-        'PI': {'PIcalcVolts': function(a, b) {return a / b } },
-        'PR': {'PRcalcVolts': function(a, b) {return (a * b) ** .5 }}
-      },
-      'Ohms': {
-        'EI': {'EIcalcOhms': function(a, b) {return a / b}},
-        'EP': {'EPcalcOhms': function(a, b) {return (a ** 2) / b}},
-        'PI': {'PIcalcOhms': function(a, b) {return a / (b ** 2)}}
-      },
-      'Amps': {
-        'ER': {'ERcalcAmps': function(a, b) {return a / b}},
-        'PE': {'PEcalcAmps': function(a, b) {return a / b}},
-        'PR': {'PRcalcAmps': function(a, b) {return (a / b) ** .5 }}
-      }
-    }
-  }
   // https://www.calculator.net/ohms-law-calculator.html
   const handleUserInput = val => {
     // returns f() needed for current title/step of app process
-    const handleInput = [handleUserSelect, getUserInput, calculateUserInput][
+    const handleInput = [handleUserSelect, getUserInput, calculateAnswer][
       renderedTitle
     ]
     handleInput(val)
