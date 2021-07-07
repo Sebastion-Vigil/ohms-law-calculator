@@ -108,9 +108,10 @@ const Calculator = () => {
     setUserInputVals(updatedUserInput)
   }
 
-  const calculateAnswer = (sought, v1, v2) => {
-    // 'EI' === 'IE'.split('').reverse().join('')
-    console.log('here: ', sought, v1, v2)
+  const calculateAnswer = (sought, valPair, v1, v2) => {
+    const funcKey = valPair + 'calc' + sought
+    const answer = OhmsVals[sought][valPair][funcKey](v1, v2)
+    console.log('here is the answer!!!', answer)
   }
   // https://www.calculator.net/ohms-law-calculator.html
   const handleUserInput = val => {
@@ -169,16 +170,17 @@ const Calculator = () => {
     if (userInputVals.length === 2) {
       const hidden = new Array(4).fill('hidden')
       setBttnsVisibility(hidden)
-      console.log('on to step 3!', Object.keys(userInputVals[0])[0])
       const firstInputStr = Object.keys(userInputVals[0])[0]
       const secondInputStr = Object.keys(userInputVals[1])[0]
-      const firstInput = Object.values(userInputVals[0])[0]
-      const secondInput = Object.values(userInputVals[1])[0]
-      console.log(firstInput, secondInput)
-      const inputLetterPair = OhmsVals['LetterMap'][firstInputStr] + OhmsVals['LetterMap'][secondInputStr]
-      const inputKey = inputLetterPair + 'calc' + valueSought
-      const answer = OhmsVals[valueSought][inputLetterPair][inputKey](firstInput, secondInput)
-      console.log('answer', answer)
+      let inputLetterPair = OhmsVals['LetterMap'][firstInputStr] + OhmsVals['LetterMap'][secondInputStr]
+      if (!OhmsVals[valueSought][inputLetterPair]) {
+        inputLetterPair = inputLetterPair.split('').reverse().join('')
+        const swappedInputVals = [...userInputVals]
+        swappedInputVals.reverse()
+      }
+      
+      calculateAnswer(valueSought, inputLetterPair, Object.values(userInputVals[0])[0], Object.values(userInputVals[1])[0])
+      // const answer = OhmsVals[valueSought][inputLetterPair][inputKey](firstInput, secondInput)
     }
   }
 
