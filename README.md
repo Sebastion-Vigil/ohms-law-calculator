@@ -13,14 +13,8 @@ An Ohm's Law calculator app for electricians and other technicians in the field.
 - UI Should be simple and self-explanatory
   - perhaps a bit of text to help user
 
-### Brainstorm
 
-- Functional components, props, functionality
-- Calculator, Screen, Keyboard
-- Calculator main engine
-- Does project need any classes
-- Generate markup in clean, organized manner
+### Next step styling ###
 
-### ToDo ###
-- See if any code can be easily simplified, i.e., helper functions etc.
-- ~~Implement basic toggle functionality for Keyboard in Screen~~
+
+#### Later refactoring. ####
