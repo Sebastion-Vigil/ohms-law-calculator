@@ -41,6 +41,11 @@ const Calculator = () => {
     display
   ]) // fires onMount & every time dependency changes
 
+  const toggleKeyboard = () => {
+    let toggled = !keyboard
+    setKeyboard(toggled)
+  }
+
   const OhmsVals = { // this works in node console! O(1) !!!
     'Watts': {
       'EI': { 'EIcalcWatts': function(a, b) { return a * b } },
@@ -119,14 +124,8 @@ const Calculator = () => {
     handleInput(val)
   }
 
-  // all below f() s 4 Keyboard.js
+  // all below f()s passed 2 Keyboard.js
 
-  const toggleKeyboard = () => {
-    if (keyboard) setDisplay('')
-    let toggled = !keyboard
-    setKeyboard(toggled)
-  } // need to make separate cancel f()
-    // will make removing selected val easier
   const handleNumKey = num => {
     console.log('Number entered!', num, typeof num)
     let currentDisplay = display
@@ -163,6 +162,11 @@ const Calculator = () => {
     toggleKeyboard()
     setDecimalPresent(false)
   }
+
+  const handleCancelKey = () => {
+    console.log('handleCancleKey clicked!')
+  }
+
   const f = () => {
     console.log(userInputVals)
   }
@@ -181,6 +185,7 @@ const Calculator = () => {
         handleBackspaceKey={handleBackspaceKey}
         handleNegIntKey={handleNegIntKey}
         handleEnterKey={handleEnterKey}
+        handleCancelKey={handleCancelKey}
         display={display}
       />
     </div>
@@ -188,3 +193,22 @@ const Calculator = () => {
 }
 export default Calculator
 // learny learny https://stackoverflow.com/questions/54620928/useeffect-hook-not-firing-after-state-change#54621059
+
+// const obj = {
+//   ... 'Watts': 'P',
+//   ... 'Volts': 'E',
+//   ... 'Ohms': 'R',
+//   ... 'Amps': 'I'
+//   ... }
+//   undefined
+//   > 
+//   > 
+//   > let str = 'Watts'
+//   undefined
+//   > 
+//   > str = obj[str]
+//   'P'
+//   > str
+//   'P'
+//   > 
+  

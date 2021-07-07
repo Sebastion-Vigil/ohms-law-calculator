@@ -39,12 +39,12 @@ const Screen = props => {
         })}
       {props.keyboardActive ? (
         <Keyboard
-          toggle={props.toggleKeyboard}
           handleEnterKey={props.handleEnterKey}
           handleNumKey={props.handleNumKey}
           handleDecimalKey={props.handleDecimalKey}
           handleBackspaceKey={props.handleBackspaceKey}
           handleNegIntKey={props.handleNegIntKey}
+          handleCancelKey={props.handleCancelKey}
         />
       ) : null}
     </div>

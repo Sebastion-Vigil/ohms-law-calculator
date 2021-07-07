@@ -33,7 +33,7 @@ const Keyboard = props => {
         <div className='key' id='backspace-bttn' onClick={props.handleBackspaceKey}>{`<=`}</div>
         <div className='key' id='neg-int-bttn' onClick={props.handleNegIntKey}>{`+/-`}</div>
         <div className='key' id='enter-bttn' onClick={props.handleEnterKey}>{`Enter`}</div>
-        <div className='key' id='exit-bttn' onClick={props.toggle}>
+        <div className='key' id='exit-bttn' onClick={props.handleCancelKey}>
           Cancel
         </div>
       </div>
