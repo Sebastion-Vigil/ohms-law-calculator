@@ -5,10 +5,11 @@ import Screen from './Screen.js'
 import '../css/calculator.css'
 
 const Calculator = () => {
-  const titles = useState([
+  
+  const [titles, setTitles] = useState([
     // 3 main steps of app process:
     'Searching for which value?', // 1 Select value
-    'Which 2 values known?', // 2 Get two known values
+    'Enter 1st value known', // 2 Get two known values
     'Answer' // 3 Calculate and return answer
   ])
 
@@ -23,9 +24,8 @@ const Calculator = () => {
   const [keyboard, setKeyboard] = useState(false) // just a boolean & method to update it
   const [display, setDisplay] = useState('') // here we go ya'll
   const [decimalPresent, setDecimalPresent] = useState(false)
-  const [bttnVisibility, setBttnsVisibility] = useState(
-    new Array(4).fill('visible')
-  ) // ? does it reset on every render? if so, bad
+  const [bttnVisibility, setBttnsVisibility] = useState(new Array(4).fill('visible'))
+  const [lastBttnSelected, setLastBttnSelected] = useState(0)
   const [answerReady, sendAnswer] = useState([])
   const [renderedTitle, setRenderedTitle] = useState(0) // index into titles, updates as needed
 
@@ -37,16 +37,19 @@ const Calculator = () => {
     valueSought,
     answerReady,
     bttnVisibility,
+    lastBttnSelected,
     keyboard,
-    display
+    display,
+    titles
   ]) // fires onMount & every time dependency changes
 
-  const toggleKeyboard = () => {
-    let toggled = !keyboard
-    setKeyboard(toggled)
-  }
-
   const OhmsVals = { // this works in node console! O(1) !!!
+    'LetterMap': {
+       'Watts': 'P',
+       'Volts': 'E',
+       'Ohms': 'R',
+       'Amps': 'I'
+    },
     'Watts': {
       'EI': { 'EIcalcWatts': function(a, b) { return a * b } },
       'RI': { 'RIcalcWatts': function(a, b) { return a * b ** 2 } },
@@ -73,6 +76,7 @@ const Calculator = () => {
     const bttns = [...bttnVisibility]
     bttns[i] = 'hidden'
     setBttnsVisibility(bttns)
+    setLastBttnSelected(i)
   }
 
   // step # 1 determine value sought by user
@@ -86,10 +90,11 @@ const Calculator = () => {
   }
 
   const getUserInput = val => {
-    const newTitle = userInputVals[0] && !userInputVals[1] ? 2 : renderedTitle
     handleButtonVisibility(val)
     toggleKeyboard()
-    console.log('getUserInput still executing!')
+    const updatedTitle = [...titles]
+    updatedTitle[1] = 'Enter number for ' + values[0][val]
+    setTitles(updatedTitle)
     const updatedUserInput = [...userInputVals]
     const userInputString = values[0][val]
     const userInputObj = {}
@@ -97,23 +102,15 @@ const Calculator = () => {
     updatedUserInput.push(userInputObj)
     if (userInputVals.length === 1) { // if 1 then currently storing 2nd val
       console.log('Recording 2nd user input', values[0][val], val)
-      const bttns = [...bttnVisibility]
-      bttns.fill('hidden')
-      setBttnsVisibility(bttns) // hide all bttns at this point
     } else { // otherwise currently storing 1st val
       console.log('Recording 1st user input', values[0][val], val)
     }
-    setRenderedTitle(newTitle)
     setUserInputVals(updatedUserInput)
   }
 
   const calculateAnswer = (sought, v1, v2) => {
-    // need 2 ensure params passed in correct order 2 prevent incorrect answer
     // 'EI' === 'IE'.split('').reverse().join('')
-    // console.log('calculated user input!', val)
-    // const readyAnswer = answerReady
-    // readyAnswer.push('Calculating answer...')
-    // sendAnswer(readyAnswer)
+    console.log('here: ', sought, v1, v2)
   }
   // https://www.calculator.net/ohms-law-calculator.html
   const handleUserInput = val => {
@@ -123,11 +120,15 @@ const Calculator = () => {
     ]
     handleInput(val)
   }
+  // passed to Screen.js
+  const toggleKeyboard = () => {
+    let toggled = !keyboard
+    setKeyboard(toggled)
+  }
 
   // all below f()s passed 2 Keyboard.js
 
   const handleNumKey = num => {
-    console.log('Number entered!', num, typeof num)
     let currentDisplay = display
     currentDisplay += num
     setDisplay(currentDisplay)
@@ -146,7 +147,6 @@ const Calculator = () => {
     const deleted = currentDisplay.pop()
     if (deleted === '.') setDecimalPresent(false) // make sure '.' allowed again if deleted
     currentDisplay = currentDisplay.join('')
-    console.log('currentDisplay', currentDisplay)
     setDisplay(currentDisplay)
   }
 
@@ -155,25 +155,50 @@ const Calculator = () => {
   }
 
   const handleEnterKey = () => {
+    const inputTitle = userInputVals.length === 1 ? 'Enter 2nd Value known' : 'Calculating...'
+    const newTitle = [...titles]
+    newTitle[1] = inputTitle
     const userInputIndex = userInputVals.length - 1
     const updatedUserInput = [...userInputVals]
     updatedUserInput[userInputIndex][Object.keys(updatedUserInput[userInputIndex])[0]] = parseFloat(display)
     setUserInputVals(updatedUserInput)
+    setDisplay('')
+    toggleKeyboard()
+    setDecimalPresent(false)
+    setTitles(newTitle)
+    if (userInputVals.length === 2) {
+      const hidden = new Array(4).fill('hidden')
+      setBttnsVisibility(hidden)
+      console.log('on to step 3!', Object.keys(userInputVals[0])[0])
+      const firstInputStr = Object.keys(userInputVals[0])[0]
+      const secondInputStr = Object.keys(userInputVals[1])[0]
+      const firstInput = Object.values(userInputVals[0])[0]
+      const secondInput = Object.values(userInputVals[1])[0]
+      console.log(firstInput, secondInput)
+      const inputLetterPair = OhmsVals['LetterMap'][firstInputStr] + OhmsVals['LetterMap'][secondInputStr]
+      const inputKey = inputLetterPair + 'calc' + valueSought
+      const answer = OhmsVals[valueSought][inputLetterPair][inputKey](firstInput, secondInput)
+      console.log('answer', answer)
+    }
+  }
+
+  const handleCancelKey = () => {
+    const inputVals = [...userInputVals]
+    const canceled = inputVals.pop()
+    const bttns = [...bttnVisibility]
+    bttns[lastBttnSelected] = 'visible'
+    setBttnsVisibility(bttns)
+    console.log('okay, canceling ' + Object.entries(canceled))
+    setUserInputVals(inputVals)
+    setDisplay('')
     toggleKeyboard()
     setDecimalPresent(false)
   }
 
-  const handleCancelKey = () => {
-    console.log('handleCancleKey clicked!')
-  }
-
-  const f = () => {
-    console.log(userInputVals)
-  }
   return (
-    <div className='calculator' onClick={f}>
+    <div className='calculator' >
       <Screen
-        currentTitle={titles[0][renderedTitle]}
+        currentTitle={titles[renderedTitle]}
         values={values[0]}
         keyboardActive={keyboard}
         answer={answerReady}
