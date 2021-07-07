@@ -64,3 +64,9 @@
     background-color: darkgoldenrod;
     /* border: .5px solid gold; */
 }
+
+.reset-button {
+    width: 100px;
+    height: 45px;
+    background-color: magenta;
+}

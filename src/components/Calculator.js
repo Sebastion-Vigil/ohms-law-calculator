@@ -19,14 +19,14 @@ const Calculator = () => {
     'Ohms', 
     'Amps',
     ])
-  const [valueSought, setValueSought] = useState('no selection') // store val sought by user
+  const [valueSought, setValueSought] = useState('none') // store val sought by user
   const [userInputVals, setUserInputVals] = useState([]) // both truthy when value pair complete
   const [keyboard, setKeyboard] = useState(false) // just a boolean & method to update it
-  const [display, setDisplay] = useState('') // here we go ya'll
+  const [display, setDisplay] = useState('')
+  const [resetButton, setResetButton] = useState(false)
   const [decimalPresent, setDecimalPresent] = useState(false)
   const [bttnVisibility, setBttnsVisibility] = useState(new Array(4).fill('visible'))
   const [lastBttnSelected, setLastBttnSelected] = useState(0)
-  const [answerReady, sendAnswer] = useState([])
   const [renderedTitle, setRenderedTitle] = useState(0) // index into titles, updates as needed
 
   useEffect(() => {
@@ -35,12 +35,12 @@ const Calculator = () => {
   }, [
     userInputVals,
     valueSought,
-    answerReady,
     bttnVisibility,
     lastBttnSelected,
     keyboard,
     display,
-    titles
+    titles,
+    resetButton
   ]) // fires onMount & every time dependency changes
 
   const OhmsVals = { // this works in node console! O(1) !!!
@@ -113,6 +113,7 @@ const Calculator = () => {
     let answer = OhmsVals[sought][valPair][funcKey](v1, v2)
     setRenderedTitle(2)
     setDisplay(answer.toString())
+    setResetButton(true)
   }
   // https://www.calculator.net/ohms-law-calculator.html
   const handleUserInput = val => {
@@ -198,13 +199,26 @@ const Calculator = () => {
     setDecimalPresent(false)
   }
 
+  const handleResetButton = () => {
+    setValueSought('none')
+    const resetUserInputVals = []
+    setUserInputVals(resetUserInputVals)
+    setKeyboard(false)
+    setDisplay('')
+    setResetButton(false)
+    setDecimalPresent(false)
+    const resetBttnVisibility = new Array(4).fill('visible')
+    setBttnsVisibility(resetBttnVisibility)
+    setLastBttnSelected(0)
+    setRenderedTitle(0)
+  }
+
   return (
     <div className='calculator' >
       <Screen
         currentTitle={titles[renderedTitle]}
         values={values[0]}
         keyboardActive={keyboard}
-        answer={answerReady}
         bttnVisibility={bttnVisibility}
         toggleKeyboard={toggleKeyboard}
         handleUser={handleUserInput}
@@ -215,6 +229,8 @@ const Calculator = () => {
         handleEnterKey={handleEnterKey}
         handleCancelKey={handleCancelKey}
         display={display}
+        resetButton={resetButton}
+        handleResetButton={handleResetButton}
       />
     </div>
   )
