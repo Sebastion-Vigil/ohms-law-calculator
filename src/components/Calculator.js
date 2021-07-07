@@ -110,8 +110,9 @@ const Calculator = () => {
 
   const calculateAnswer = (sought, valPair, v1, v2) => {
     const funcKey = valPair + 'calc' + sought
-    const answer = OhmsVals[sought][valPair][funcKey](v1, v2)
-    console.log('here is the answer!!!', answer)
+    let answer = OhmsVals[sought][valPair][funcKey](v1, v2)
+    setRenderedTitle(2)
+    setDisplay(answer.toString())
   }
   // https://www.calculator.net/ohms-law-calculator.html
   const handleUserInput = val => {
