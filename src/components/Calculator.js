@@ -19,9 +19,10 @@ const Calculator = () => {
     'Amps',
     ])
   const [valueSought, setValueSought] = useState('no selection') // store val sought by user
-  const [userInputVals, setUserInputVals] = useState([undefined, undefined]) // both truthy when value pair complete
+  const [userInputVals, setUserInputVals] = useState([]) // both truthy when value pair complete
   const [keyboard, setKeyboard] = useState(false) // just a boolean & method to update it
   const [display, setDisplay] = useState('') // here we go ya'll
+  const [decimalPresent, setDecimalPresent] = useState(false)
   const [bttnVisibility, setBttnsVisibility] = useState(
     new Array(4).fill('visible')
   ) // ? does it reset on every render? if so, bad
@@ -83,17 +84,18 @@ const Calculator = () => {
     const newTitle = userInputVals[0] && !userInputVals[1] ? 2 : renderedTitle
     handleButtonVisibility(val)
     toggleKeyboard()
+    console.log('getUserInput still executing!')
     const updatedUserInput = [...userInputVals]
-    const newInputIndex = !userInputVals[0] && !userInputVals[1] ? 0 : 1
-    updatedUserInput[newInputIndex] = values[0][val]
-    if (newInputIndex === 1) {
-      // if 1 then currently storing 2nd val
+    const userInputString = values[0][val]
+    const userInputObj = {}
+    userInputObj[userInputString] = undefined
+    updatedUserInput.push(userInputObj)
+    if (userInputVals.length === 1) { // if 1 then currently storing 2nd val
       console.log('Recording 2nd user input', values[0][val], val)
       const bttns = [...bttnVisibility]
       bttns.fill('hidden')
       setBttnsVisibility(bttns) // hide all bttns at this point
-    } else {
-      // otherwise currently storing 1st val
+    } else { // otherwise currently storing 1st val
       console.log('Recording 1st user input', values[0][val], val)
     }
     setRenderedTitle(newTitle)
@@ -120,10 +122,11 @@ const Calculator = () => {
   // all below f() s 4 Keyboard.js
 
   const toggleKeyboard = () => {
+    if (keyboard) setDisplay('')
     let toggled = !keyboard
     setKeyboard(toggled)
-  }
-
+  } // need to make separate cancel f()
+    // will make removing selected val easier
   const handleNumKey = num => {
     console.log('Number entered!', num, typeof num)
     let currentDisplay = display
@@ -132,11 +135,20 @@ const Calculator = () => {
   }
 
   const handleDecimalKey = () => {
-    console.log('Decimal key clicked!')
+    if (decimalPresent) return 
+    let currentDisplay = display
+    currentDisplay += '.'
+    setDisplay(currentDisplay)
+    setDecimalPresent(true)
   }
 
   const handleBackspaceKey = () => {
-    console.log('Backspace key clicked!')
+    let currentDisplay = display.split('')
+    const deleted = currentDisplay.pop()
+    if (deleted === '.') setDecimalPresent(false) // make sure '.' allowed again if deleted
+    currentDisplay = currentDisplay.join('')
+    console.log('currentDisplay', currentDisplay)
+    setDisplay(currentDisplay)
   }
 
   const handleNegIntKey = () => {
@@ -144,11 +156,18 @@ const Calculator = () => {
   }
 
   const handleEnterKey = () => {
-    // test f() just 2 see it worky
-    console.log('Enter key clicked!')
+    const userInputIndex = userInputVals.length - 1
+    const updatedUserInput = [...userInputVals]
+    updatedUserInput[userInputIndex][Object.keys(updatedUserInput[userInputIndex])[0]] = parseFloat(display)
+    setUserInputVals(updatedUserInput)
+    toggleKeyboard()
+    setDecimalPresent(false)
+  }
+  const f = () => {
+    console.log(userInputVals)
   }
   return (
-    <div className='calculator'>
+    <div className='calculator' onClick={f}>
       <Screen
         currentTitle={titles[0][renderedTitle]}
         values={values[0]}
