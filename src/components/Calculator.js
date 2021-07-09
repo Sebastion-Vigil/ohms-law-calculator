@@ -221,7 +221,6 @@ const Calculator = () => {
         handleNumKey={handleNumKey}
         handleDecimalKey={handleDecimalKey}
         handleBackspaceKey={handleBackspaceKey}
-        handleNegIntKey={handleNegIntKey}
         handleEnterKey={handleEnterKey}
         handleCancelKey={handleCancelKey}
         display={display}
