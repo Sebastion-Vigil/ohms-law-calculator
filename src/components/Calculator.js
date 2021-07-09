@@ -112,7 +112,7 @@ const Calculator = () => {
     const funcKey = valPair + 'calc' + sought
     let answer = OhmsVals[sought][valPair][funcKey](v1, v2)
     setRenderedTitle(2)
-    setDisplay(answer.toString())
+    setDisplay(answer.toString() + ' ' + OhmsVals['LetterMap'][sought])
     setResetButton(true)
   }
   // https://www.calculator.net/ohms-law-calculator.html
@@ -192,7 +192,11 @@ const Calculator = () => {
     setUserInputVals(inputVals)
     setDisplay('')
     toggleKeyboard()
-    setDecimalPresent(false)
+    if (decimalPresent) setDecimalPresent(false)
+    const inputTitle = inputVals.length === 0 ? 'Enter 1st value known' : 'Enter 2nd value known'
+    const newTitle = [...titles]
+    newTitle[1] = inputTitle
+    setTitles(newTitle)
   }
 
   const handleClearAllKey = () => {
@@ -207,10 +211,14 @@ const Calculator = () => {
     setKeyboard(false)
     setDisplay('')
     setResetButton(false)
-    setDecimalPresent(false)
+    if (decimalPresent) setDecimalPresent(false)
     const resetBttnVisibility = new Array(4).fill('visible')
     setBttnsVisibility(resetBttnVisibility)
     setLastBttnSelected(0)
+    const inputTitle = 'Enter 1st value known'
+    const newTitle = [...titles]
+    newTitle[1] = inputTitle
+    setTitles(newTitle)
     setRenderedTitle(0)
   }
 
