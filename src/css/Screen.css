@@ -38,6 +38,10 @@
 }
 
 .title-display {
+   display: flex;
+   justify-content: flex-end;
+   align-items: center;
+   overflow-y: hidden;
    width: 300px;
    height: 80px;
    background-color: black;

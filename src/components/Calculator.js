@@ -128,9 +128,9 @@ const Calculator = () => {
     let toggled = !keyboard
     setKeyboard(toggled)
   }
-
+  // +++++++++++++++++++++++++++++++++++
   // all below f()s passed 2 Keyboard.js
-
+  // +++++++++++++++++++++++++++++++++++
   const handleNumKey = num => {
     let currentDisplay = display
     currentDisplay += num
@@ -195,6 +195,11 @@ const Calculator = () => {
     setDecimalPresent(false)
   }
 
+  const handleClearAllKey = () => {
+    if (decimalPresent) setDecimalPresent(false)
+    setDisplay('')
+  }
+
   const handleResetButton = () => {
     setValueSought('none')
     const resetUserInputVals = []
@@ -225,6 +230,7 @@ const Calculator = () => {
         handleCancelKey={handleCancelKey}
         display={display}
         resetButton={resetButton}
+        handleClearAllKey={handleClearAllKey}
         handleResetButton={handleResetButton}
       />
     </div>

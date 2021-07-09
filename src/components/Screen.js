@@ -43,7 +43,7 @@ const Screen = props => {
           handleNumKey={props.handleNumKey}
           handleDecimalKey={props.handleDecimalKey}
           handleBackspaceKey={props.handleBackspaceKey}
-          handleNegIntKey={props.handleNegIntKey}
+          handleClearAllKey={props.handleClearAllKey}
           handleCancelKey={props.handleCancelKey}
         />
       ) : null}
