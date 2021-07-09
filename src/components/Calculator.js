@@ -153,10 +153,6 @@ const Calculator = () => {
     setDisplay(currentDisplay)
   }
 
-  const handleNegIntKey = () => {
-    console.log('Negative int toggle key clicked!')
-  }
-
   const handleEnterKey = () => {
     const inputTitle = userInputVals.length === 1 ? 'Enter 2nd Value known' : 'Calculating...'
     const newTitle = [...titles]
