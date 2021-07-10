@@ -48,7 +48,9 @@ const Screen = props => {
         />
       ) : null}
       {props.resetButton ? (
-        <div className='reset-button' onClick={props.handleResetButton}>Reset</div>
+        <div className='reset-button' onClick={props.handleResetButton}>
+          Reset
+        </div>
       ) : null}
     </div>
   )

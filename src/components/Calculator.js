@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react' // okay so we got to test this push to GitHub
+import React, { useState, useEffect } from 'react'
 
 import Screen from './Screen.js'
 
 import '../css/calculator.css'
 
 const Calculator = () => {
-  
   const [titles, setTitles] = useState([
     // 3 main steps of app process:
     'Searching for which value?', // 1 Select value
@@ -13,20 +12,17 @@ const Calculator = () => {
     'Answer' // 3 Calculate and return answer
   ])
 
-  const values = useState([
-    'Watts',
-    'Volts',
-    'Ohms', 
-    'Amps',
-    ])
+  const values = useState(['Watts', 'Volts', 'Ohms', 'Amps'])
   const [valueSought, setValueSought] = useState('none') // store val sought by user
   const [userInputVals, setUserInputVals] = useState([]) // both truthy when value pair complete
   const [keyboard, setKeyboard] = useState(false) // just a boolean & method to update it
   const [display, setDisplay] = useState('')
   const [resetButton, setResetButton] = useState(false)
   const [decimalPresent, setDecimalPresent] = useState(false)
-  const [bttnVisibility, setBttnsVisibility] = useState(new Array(4).fill('visible'))
-  const [lastBttnSelected, setLastBttnSelected] = useState(0)
+  const [bttnVisibility, setBttnsVisibility] = useState(
+    new Array(4).fill('visible')
+  )
+  const [lastBttnSelected, setLastBttnSelected] = useState(0) // for cancel bttn 2 know which 2 delete
   const [renderedTitle, setRenderedTitle] = useState(0) // index into titles, updates as needed
 
   useEffect(() => {
@@ -43,32 +39,81 @@ const Calculator = () => {
     resetButton
   ]) // fires onMount & every time dependency changes
 
-  const OhmsVals = { // this works in node console! O(1) !!!
-    'LetterMap': {
-       'Watts': 'P',
-       'Volts': 'E',
-       'Ohms': 'R',
-       'Amps': 'I'
+  const OhmsVals = {
+    // this works in node console! O(1) !!!
+    LetterMap: {
+      Watts: 'P',
+      Volts: 'E',
+      Ohms: 'R',
+      Amps: 'I'
     },
-    'Watts': {
-      'EI': { 'EIcalcWatts': function(a, b) { return a * b } },
-      'RI': { 'RIcalcWatts': function(a, b) { return a * b ** 2 } },
-      'ER': { 'ERcalcWatts': function(a, b) { return a ** 2 / b } }
+    Watts: {
+      EI: {
+        EIcalcWatts: function (a, b) {
+          return a * b
+        }
+      },
+      RI: {
+        RIcalcWatts: function (a, b) {
+          return a * b ** 2
+        }
+      },
+      ER: {
+        ERcalcWatts: function (a, b) {
+          return a ** 2 / b
+        }
+      }
     },
-    'Volts': {
-      'RI': {'RIcalcVolts': function(a, b) {return a * b} },
-      'PI': {'PIcalcVolts': function(a, b) {return a / b } },
-      'PR': {'PRcalcVolts': function(a, b) {return (a * b) ** .5 }}
+    Volts: {
+      RI: {
+        RIcalcVolts: function (a, b) {
+          return a * b
+        }
+      },
+      PI: {
+        PIcalcVolts: function (a, b) {
+          return a / b
+        }
+      },
+      PR: {
+        PRcalcVolts: function (a, b) {
+          return (a * b) ** 0.5
+        }
+      }
     },
-    'Ohms': {
-      'EI': {'EIcalcOhms': function(a, b) {return a / b}},
-      'EP': {'EPcalcOhms': function(a, b) {return (a ** 2) / b}},
-      'PI': {'PIcalcOhms': function(a, b) {return a / (b ** 2)}}
+    Ohms: {
+      EI: {
+        EIcalcOhms: function (a, b) {
+          return a / b
+        }
+      },
+      EP: {
+        EPcalcOhms: function (a, b) {
+          return a ** 2 / b
+        }
+      },
+      PI: {
+        PIcalcOhms: function (a, b) {
+          return a / b ** 2
+        }
+      }
     },
-    'Amps': {
-      'ER': {'ERcalcAmps': function(a, b) {return a / b}},
-      'PE': {'PEcalcAmps': function(a, b) {return a / b}},
-      'PR': {'PRcalcAmps': function(a, b) {return (a / b) ** .5 }}
+    Amps: {
+      ER: {
+        ERcalcAmps: function (a, b) {
+          return a / b
+        }
+      },
+      PE: {
+        PEcalcAmps: function (a, b) {
+          return a / b
+        }
+      },
+      PR: {
+        PRcalcAmps: function (a, b) {
+          return (a / b) ** 0.5
+        }
+      }
     }
   }
 
@@ -81,7 +126,7 @@ const Calculator = () => {
 
   // step # 1 determine value sought by user
   const handleUserSelect = val => {
-    console.log('user selected a value!', values[0][val], val)
+    // console.log('user selected a value!', values[0][val], val)
     handleButtonVisibility(val)
     let valSought = valueSought
     valSought = values[0][val]
@@ -100,11 +145,6 @@ const Calculator = () => {
     const userInputObj = {}
     userInputObj[userInputString] = undefined
     updatedUserInput.push(userInputObj)
-    if (userInputVals.length === 1) { // if 1 then currently storing 2nd val
-      console.log('Recording 2nd user input', values[0][val], val)
-    } else { // otherwise currently storing 1st val
-      console.log('Recording 1st user input', values[0][val], val)
-    }
     setUserInputVals(updatedUserInput)
   }
 
@@ -112,7 +152,7 @@ const Calculator = () => {
     const funcKey = valPair + 'calc' + sought
     let answer = OhmsVals[sought][valPair][funcKey](v1, v2)
     setRenderedTitle(2)
-    setDisplay(answer.toString() + ' ' + OhmsVals['LetterMap'][sought])
+    setDisplay(sought + ': ' + answer.toString())
     setResetButton(true)
   }
   // https://www.calculator.net/ohms-law-calculator.html
@@ -138,7 +178,7 @@ const Calculator = () => {
   }
 
   const handleDecimalKey = () => {
-    if (decimalPresent) return 
+    if (decimalPresent) return
     let currentDisplay = display
     currentDisplay += '.'
     setDisplay(currentDisplay)
@@ -154,12 +194,15 @@ const Calculator = () => {
   }
 
   const handleEnterKey = () => {
-    const inputTitle = userInputVals.length === 1 ? 'Enter 2nd Value known' : 'Calculating...'
+    const inputTitle =
+      userInputVals.length === 1 ? 'Enter 2nd Value known' : 'Calculating...'
     const newTitle = [...titles]
     newTitle[1] = inputTitle
     const userInputIndex = userInputVals.length - 1
     const updatedUserInput = [...userInputVals]
-    updatedUserInput[userInputIndex][Object.keys(updatedUserInput[userInputIndex])[0]] = parseFloat(display)
+    updatedUserInput[userInputIndex][
+      Object.keys(updatedUserInput[userInputIndex])[0]
+    ] = parseFloat(display)
     setUserInputVals(updatedUserInput)
     setDisplay('')
     toggleKeyboard()
@@ -170,30 +213,40 @@ const Calculator = () => {
       setBttnsVisibility(hidden)
       const firstInputStr = Object.keys(userInputVals[0])[0]
       const secondInputStr = Object.keys(userInputVals[1])[0]
-      let inputLetterPair = OhmsVals['LetterMap'][firstInputStr] + OhmsVals['LetterMap'][secondInputStr]
+      let inputLetterPair =
+        OhmsVals['LetterMap'][firstInputStr] +
+        OhmsVals['LetterMap'][secondInputStr]
       if (!OhmsVals[valueSought][inputLetterPair]) {
-        inputLetterPair = inputLetterPair.split('').reverse().join('')
+        inputLetterPair = inputLetterPair
+          .split('')
+          .reverse()
+          .join('')
         const swappedInputVals = [...userInputVals]
         swappedInputVals.reverse()
       }
-      
-      calculateAnswer(valueSought, inputLetterPair, Object.values(userInputVals[0])[0], Object.values(userInputVals[1])[0])
+
+      calculateAnswer(
+        valueSought,
+        inputLetterPair,
+        Object.values(userInputVals[0])[0],
+        Object.values(userInputVals[1])[0]
+      )
       // const answer = OhmsVals[valueSought][inputLetterPair][inputKey](firstInput, secondInput)
     }
   }
 
   const handleCancelKey = () => {
     const inputVals = [...userInputVals]
-    const canceled = inputVals.pop()
+    inputVals.pop()
     const bttns = [...bttnVisibility]
     bttns[lastBttnSelected] = 'visible'
     setBttnsVisibility(bttns)
-    console.log('okay, canceling ' + Object.entries(canceled))
     setUserInputVals(inputVals)
     setDisplay('')
     toggleKeyboard()
     if (decimalPresent) setDecimalPresent(false)
-    const inputTitle = inputVals.length === 0 ? 'Enter 1st value known' : 'Enter 2nd value known'
+    const inputTitle =
+      inputVals.length === 0 ? 'Enter 1st value known' : 'Enter 2nd value known'
     const newTitle = [...titles]
     newTitle[1] = inputTitle
     setTitles(newTitle)
@@ -223,7 +276,7 @@ const Calculator = () => {
   }
 
   return (
-    <div className='calculator' >
+    <div className='calculator'>
       <Screen
         currentTitle={titles[renderedTitle]}
         values={values[0]}
