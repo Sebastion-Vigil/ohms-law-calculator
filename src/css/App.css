@@ -1,8 +1,4 @@
 .app {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     width: 320px;
     height: 460px;
     background-color: silver;

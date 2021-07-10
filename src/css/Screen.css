@@ -1,17 +1,10 @@
 .screen {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
     width: 310px;
     height: 450px;
     /* border: 1px solid blue; */
 }
 
 .user-select-value {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
     width: 300px;
     height: 40px;
     background-color: sienna;
@@ -19,18 +12,11 @@
 }
 
 .title-bar {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   width: 300px;
   height: 120px;
 }
 
 .title {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     width: 300px;
     height: 40px;
     background-color: lightskyblue;
@@ -38,9 +24,6 @@
 }
 
 .title-display {
-   display: flex;
-   justify-content: flex-end;
-   align-items: center;
    overflow-y: hidden;
    width: 300px;
    height: 80px;

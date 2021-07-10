@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 
 import Keyboard from './Keyboard.js'
 
+import '../css/flexbox.css' // base flex styling
 import '../css/Screen.css'
 
 const Screen = props => {
@@ -10,10 +11,10 @@ const Screen = props => {
   }, [props])
 
   return (
-    <div className='screen'>
-      <div className='title-bar'>
-        <div className='title'>{props.currentTitle}</div>
-        <div className='title-display'>{props.display}</div>
+    <div className='screen flex-col-spc-evn-cntr'>
+      <div className='title-bar flex-col-cntr-cntr'>
+        <div className='title flex-row-cntr-cntr'>{props.currentTitle}</div>
+        <div className='title-display flex-row-flx-end-cntr'>{props.display}</div>
       </div>
       {props.values
         .filter(val => isNaN(parseInt(val)))
@@ -21,7 +22,7 @@ const Screen = props => {
           return (
             <div
               key={i}
-              className='user-select-value'
+              className='user-select-value flex-row-spc-evn-cntr'
               style={{
                 visibility: props.bttnVisibility[i]
               }}

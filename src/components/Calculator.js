@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 import Screen from './Screen.js'
 
+import '../css/flexbox.css' // base flex styling
 import '../css/calculator.css'
 
 const Calculator = () => {
@@ -276,7 +277,7 @@ const Calculator = () => {
   }
 
   return (
-    <div className='calculator'>
+    <div className='calculator flex-col-cntr-cntr'>
       <Screen
         currentTitle={titles[renderedTitle]}
         values={values[0]}
