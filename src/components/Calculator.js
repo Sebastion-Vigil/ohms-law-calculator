@@ -246,22 +246,3 @@ const Calculator = () => {
 }
 export default Calculator
 // learny learny https://stackoverflow.com/questions/54620928/useeffect-hook-not-firing-after-state-change#54621059
-
-// const obj = {
-//   ... 'Watts': 'P',
-//   ... 'Volts': 'E',
-//   ... 'Ohms': 'R',
-//   ... 'Amps': 'I'
-//   ... }
-//   undefined
-//   > 
-//   > 
-//   > let str = 'Watts'
-//   undefined
-//   > 
-//   > str = obj[str]
-//   'P'
-//   > str
-//   'P'
-//   > 
-  
