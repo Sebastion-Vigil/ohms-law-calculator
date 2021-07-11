@@ -194,7 +194,18 @@ const Calculator = () => {
     setDisplay(currentDisplay)
   }
 
+  const handleNothingEntered = () => {
+    setDisplay("INSERT A VALUE OR PRESS CANCEL")
+    setTimeout(() => {
+      setDisplay('')
+    }, 5000)
+  }
+
   const handleEnterKey = () => {
+    if (display === '') {
+      handleNothingEntered()
+      return
+    }
     const inputTitle =
       userInputVals.length === 1 ? 'Enter 2nd Value known' : 'Calculating...'
     const newTitle = [...titles]
