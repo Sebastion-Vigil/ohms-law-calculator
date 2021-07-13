@@ -1,5 +1,7 @@
 .app {
     width: 320px;
     height: 460px;
-    background-color: silver;
+    background-color: #FFc425;
+    border: 2px solid forestgreen;
+    border-radius: 5%;
 }

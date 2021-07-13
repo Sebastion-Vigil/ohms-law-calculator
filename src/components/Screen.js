@@ -7,7 +7,7 @@ import '../css/Screen.css'
 
 const Screen = props => {
   useEffect(() => {
-    // console.log('Screen useEffect invoked')
+    // console.log("letterMap: ", props.letterMap)
   }, [props])
 
   return (
@@ -22,19 +22,18 @@ const Screen = props => {
           return (
             <div
               key={i}
-              className='user-select-value flex-row-spc-evn-cntr'
+              className='user-select-value flex-row-cntr-cntr'
+              onClick={() => {
+                props.handleUser(i)
+              }}
               style={{
                 visibility: props.bttnVisibility[i]
               }}
             >
-              <div className='value-name'>{val}</div>
-              <div className='divider'></div>
+              <div className='value-name flex-col-cntr-cntr'>{val}</div>
               <div
-                className='user-select-button'
-                onClick={() => {
-                  props.handleUser(i)
-                }}
-              ></div>
+                className='value-letter flex-col-cntr-cntr'
+              >{'(' + props.letterMap[val] + ')'}</div>
             </div>
           )
         })}

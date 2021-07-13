@@ -9,7 +9,7 @@ const Calculator = () => {
   const [titles, setTitles] = useState([
     // 3 main steps of app process:
     'Searching for which value?', // 1 Select value
-    'Enter 1st value known', // 2 Get two known values
+    'Select 1st value known', // 2 Get two known values
     'Answer' // 3 Calculate and return answer
   ])
 
@@ -207,7 +207,7 @@ const Calculator = () => {
       return
     }
     const inputTitle =
-      userInputVals.length === 1 ? 'Enter 2nd Value known' : 'Calculating...'
+      userInputVals.length === 1 ? 'Select 2nd Value known' : 'Calculating...'
     const newTitle = [...titles]
     newTitle[1] = inputTitle
     const userInputIndex = userInputVals.length - 1
@@ -258,7 +258,7 @@ const Calculator = () => {
     toggleKeyboard()
     if (decimalPresent) setDecimalPresent(false)
     const inputTitle =
-      inputVals.length === 0 ? 'Enter 1st value known' : 'Enter 2nd value known'
+      inputVals.length === 0 ? 'Select 1st value known' : 'Select 2nd value known'
     const newTitle = [...titles]
     newTitle[1] = inputTitle
     setTitles(newTitle)
@@ -292,6 +292,7 @@ const Calculator = () => {
       <Screen
         currentTitle={titles[renderedTitle]}
         values={values[0]}
+        letterMap={OhmsVals['LetterMap']}
         keyboardActive={keyboard}
         bttnVisibility={bttnVisibility}
         toggleKeyboard={toggleKeyboard}
