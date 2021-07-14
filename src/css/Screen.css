@@ -1,7 +1,7 @@
 .screen {
     width: 310px;
     height: 450px;
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
 }
 
 .user-select-value {
@@ -13,29 +13,45 @@
     border-radius: 5%;
 }
 
+.user-select-value:hover {
+    background-color: black;
+    border: 1px solid whitesmoke;
+    color: #b73239;
+}
+
+.user-select-value:active {
+    background-color: black;
+    border: 1px solid red;
+    color: #b73239;
+}
+
 .title-bar {
   width: 300px;
-  height: 120px;
+  height: 125px;
+  background-color: forestgreen;
+  border: 2px solid darkgreen;
+  border-radius: 1.5%;    
 }
 
 .title {
-    width: 300px;
-    height: 40px;
-    background-color: lightskyblue;
-    /* border: .5px solid blue; */
+    width: 298px;
+    height: 39.5px;
+    color: whitesmoke;
+    background-color: forestgreen;
 }
 
 .title-display {
    overflow-y: hidden;
-   width: 300px;
-   height: 80px;
+   width: 298px;
+   height: 79.5px;
    background-color: black;
-   color: white;
+   color: whitesmoke;
 }
 
 .value-name {
   width: 40px;
   height: 30px;
+  color: whitesmoke;
   /* border: .5px solid purple; */
 }
 
@@ -46,7 +62,21 @@
 }
 
 .reset-button {
-    width: 100px;
-    height: 45px;
-    background-color: magenta;
+    width: 80px;
+    height: 40px;
+    background-color: forestgreen;
+    border: 1px solid black;
+    border-radius: 5%;
+}
+
+.reset-button:hover {
+    background-color: black;
+    color: whitesmoke;
+    border: 1px solid whitesmoke;
+}
+
+.reset-button:active {
+    border: 1px solid red;
+    background-color: black;
+    color: #b73239;
 }

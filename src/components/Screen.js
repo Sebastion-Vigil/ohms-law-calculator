@@ -12,7 +12,7 @@ const Screen = props => {
 
   return (
     <div className='screen flex-col-spc-evn-cntr'>
-      <div className='title-bar flex-col-cntr-cntr'>
+      <div className='title-bar flex-col-spc-evn-cntr'>
         <div className='title flex-row-cntr-cntr'>{props.currentTitle}</div>
         <div className='title-display flex-row-flx-end-cntr'>{props.display}</div>
       </div>
@@ -48,7 +48,7 @@ const Screen = props => {
         />
       ) : null}
       {props.resetButton ? (
-        <div className='reset-button' onClick={props.handleResetButton}>
+        <div className='reset-button flex-col-cntr-cntr' onClick={props.handleResetButton}>
           Reset
         </div>
       ) : null}
