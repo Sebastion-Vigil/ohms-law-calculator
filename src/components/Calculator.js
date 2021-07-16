@@ -195,13 +195,14 @@ const Calculator = () => {
   }
 
   const handleNothingEntered = () => {
-    setDisplay("INSERT A VALUE OR PRESS CANCEL")
+    setDisplay("INSERT A VALUE OR PRESS CANCEL!!!")
     setTimeout(() => {
       setDisplay('')
     }, 5000)
   }
 
   const handleEnterKey = () => {
+    if (display === 'INSERT A VALUE OR PRESS CANCEL!!!') return
     if (display === '') {
       handleNothingEntered()
       return
