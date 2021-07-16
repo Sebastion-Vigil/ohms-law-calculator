@@ -2,7 +2,7 @@
   position: absolute;
   top: 140px;
   width: 300px;
-  height: 290px;
+  height: 310px;
   background-color: forestgreen;
   border: 2px solid darkgreen;
   border-radius: 1.5%;    
@@ -23,6 +23,19 @@
   background-color: #FFc425;
   border: 1px solid black;
   border-radius: 50%;
+  font-size: 24px;
+}
+
+#exit-bttn {
+  font-size: 15px;
+}
+
+#enter-bttn {
+  font-size: 15px;
+}
+
+#decimal-bttn {
+  font-size: 35px;
 }
 
 .key:hover {

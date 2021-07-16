@@ -20,16 +20,17 @@
 }
 
 .title-display {
-  overflow-y: hidden;
+  overflow-x: hidden;
   width: 298px;
   height: 79.5px;
   background-color: black;
-  color: whitesmoke;
+  color: #b73239;
+  font-size: 20px;
 }
 
 .value-section {
     width: 300px;
-    height: 290px;
+    height: 310px;
     /* border: 1px solid purple; */
 }
 
