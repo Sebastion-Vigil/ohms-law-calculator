@@ -13,6 +13,13 @@
   align-items: center;
 }
 
+.flex-col-flx-strt-cntr {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
 .flex-col-spc-evn-cntr {
   display: flex;
   flex-direction: column;

@@ -1,28 +1,7 @@
 .screen {
-    width: 310px;
-    height: 450px;
-    /* border: 1px solid blue; */
-}
-
-.user-select-value {
-    width: 80px;
-    height: 40px;
-    background-color: forestgreen;
-    /* border: .5px solid #b73239; */
-    border: 1px solid black;
-    border-radius: 5%;
-}
-
-.user-select-value:hover {
-    background-color: black;
-    border: 1px solid whitesmoke;
-    color: #b73239;
-}
-
-.user-select-value:active {
-    background-color: black;
-    border: 1px solid red;
-    color: #b73239;
+  width: 310px;
+  height: 450px;
+  /* border: 1px solid blue; */
 }
 
 .title-bar {
@@ -30,22 +9,49 @@
   height: 125px;
   background-color: forestgreen;
   border: 2px solid darkgreen;
-  border-radius: 1.5%;    
+  border-radius: 1.5%;
 }
 
 .title {
-    width: 298px;
-    height: 39.5px;
-    color: whitesmoke;
-    background-color: forestgreen;
+  width: 298px;
+  height: 39.5px;
+  color: whitesmoke;
+  background-color: forestgreen;
 }
 
 .title-display {
-   overflow-y: hidden;
-   width: 298px;
-   height: 79.5px;
-   background-color: black;
-   color: whitesmoke;
+  overflow-y: hidden;
+  width: 298px;
+  height: 79.5px;
+  background-color: black;
+  color: whitesmoke;
+}
+
+.value-section {
+    width: 300px;
+    height: 290px;
+    /* border: 1px solid purple; */
+}
+
+.user-select-value {
+  width: 80px;
+  height: 40px;
+  background-color: forestgreen;
+  /* border: .5px solid #b73239; */
+  border: 1px solid black;
+  border-radius: 5%;
+}
+
+.user-select-value:hover {
+  background-color: black;
+  border: 1px solid whitesmoke;
+  color: #b73239;
+}
+
+.user-select-value:active {
+  background-color: black;
+  border: 1px solid red;
+  color: #b73239;
 }
 
 .value-name {
@@ -56,27 +62,27 @@
 }
 
 .value-letter {
-    width: 30px;
-    height: 30px;
-    /* border: .5px solid gold; */
+  width: 30px;
+  height: 30px;
+  /* border: .5px solid gold; */
 }
 
 .reset-button {
-    width: 80px;
-    height: 40px;
-    background-color: forestgreen;
-    border: 1px solid black;
-    border-radius: 5%;
+  width: 75px;
+  height: 37.5px;
+  background-color: forestgreen;
+  border: 1px solid black;
+  border-radius: 37.5px;
 }
 
 .reset-button:hover {
-    background-color: black;
-    color: whitesmoke;
-    border: 1px solid whitesmoke;
+  background-color: black;
+  color: whitesmoke;
+  border: 1px solid whitesmoke;
 }
 
 .reset-button:active {
-    border: 1px solid red;
-    background-color: black;
-    color: #b73239;
+  border: 1px solid red;
+  background-color: black;
+  color: #b73239;
 }
