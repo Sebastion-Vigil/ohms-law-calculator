@@ -2,6 +2,8 @@
 
 An Ohm's Law calculator app for electricians and other technicians in the field.
 
+## App image 
+
 ![App-Image](https://github.com/Sebastion-Vigil/ohms-law-calculator/blob/main/src/assets/app-img.png)
 
 ## MVP
